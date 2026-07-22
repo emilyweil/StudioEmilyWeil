@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio Emily Weil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0a;
+    --muted: #5a5a5a;
+    --faint: #bdbdbd;
+    --bg: #ffffff;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: var(--bg);
+    color: var(--ink);
+  }
+
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Shared layout for both the home view and the piece view. */
+  .view {
+    display: flex;
+    flex-direction: column;
+    max-width: 640px;
+    width: 100%;
+    padding: 2rem;
+  }
+
+  /* Home view: blank until JS reveals it. The catch-all at the bottom of
+     the script forces this back to opacity 1 if JS is ever unable to
+     complete, so the page never gets stuck blank. */
+  #stage {
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+  }
+
+  /* Piece view: hidden entirely until a piece is opened. */
+  #pieceView {
+    display: none;
+    align-items: flex-start;
+    text-align: left;
+    opacity: 0;
+  }
+
+  .title {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 6vw, 3.4rem);
+    letter-spacing: -0.01em;
+    margin: 0 0 1.2rem 0;
+  }
+
+  .subtitle {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .intro-line {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 1.4rem 0 0 0;
+  }
+
+  .letter {
+    display: inline-block;
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  .btn-row {
+    align-self: stretch;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.6rem;
+  }
+
+  .back-row {
+    align-self: stretch;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 1.6rem;
+  }
+
+  .round-btn {
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ink);
+    background: var(--bg);
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.3rem;
+    text-decoration: none;
+    padding: 0;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 1s ease, transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+  }
+
+  .round-btn.visible {
+    opacity: 1;
+  }
+
+  .round-btn:hover {
+    transform: scale(1.08);
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  #nextBtn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1.5px solid var(--ink);
+    opacity: 0;
+  }
+
+  #nextBtn.visible::after {
+    animation: pulse-ring 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse-ring {
+    0% { transform: scale(1); opacity: 0.55; }
+    70% { transform: scale(1.55); opacity: 0; }
+    100% { transform: scale(1.55); opacity: 0; }
+  }
+
+  .piece-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: clamp(1.5rem, 4.5vw, 2.2rem);
+    letter-spacing: -0.01em;
+    margin: 0 0 1.1rem 0;
+  }
+
+  .piece-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--ink);
+    margin: 0 0 1.1rem 0;
+  }
+
+  .piece-text a {
+    color: var(--ink);
+  }
+
+  .video-embed {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    margin: 0.4rem 0 0.2rem 0;
+    background: #000;
+  }
+
+  .video-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #nextBtn.visible::after {
+      animation: none;
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <div class="view" id="stage">
+    <h1 class="title" id="title">Studio Emily Weil</h1>
+    <p class="subtitle" id="subtitle">Hello! I’m a digital artist based in NYC.<br>My work is all code-based.</p>
+    <p class="intro-line" id="intro">Here's a selection of pieces I've created over the years.</p>
+    <div class="btn-row">
+      <button class="round-btn" id="nextBtn" type="button" aria-label="View first piece: Anthropometrics">&gt;</button>
+    </div>
+  </div>
+
+  <div class="view" id="pieceView">
+    <div class="back-row">
+      <button class="round-btn" id="backBtn" type="button" aria-label="Back to home">&lt;</button>
+    </div>
+    <h2 class="piece-title">Anthropometrics</h2>
+    <p class="piece-text">A commissioned work, <em>Anthropometrics</em> responds to Yves Klein&rsquo;s <em>Anthropometries</em>, from 1960, which was a kind of performance piece in which naked women dipped in blue paint made impressions of their bodies on a canvas. You can watch footage of <em>Anthropometries</em> <a href="https://www.youtube.com/watch?v=gj9nHa7FtQQ" target="_blank" rel="noopener noreferrer">here</a>.</p>
+    <p class="piece-text">Instead of naked female models, I used data from my body &ndash; sleep data, daily steps and heart rate &ndash; to render an image. Data points connected by randomized lines give an impression of flowers, a traditionally feminine form. The work starts with the kind of spinning loading symbols that typically display while waiting for data to load.</p>
+    <p class="piece-text">I inscribed two Anthropometrics as Ordinals, one on a dark background:</p>
+    <div class="video-embed">
+      <iframe src="https://player.vimeo.com/video/1054556037?h=d3db32e9e0&badge=0&background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Anthropometrics on Dark Background"></iframe>
+    </div>
+  </div>
+
+<script>
+  // Walks the container's existing child nodes so structural tags like
+  // <br> are preserved as-is, while text nodes get split into one
+  // <span class="letter"> per character (spaces stay as plain text).
+  function buildLetters(container) {
+    const originalNodes = Array.from(container.childNodes);
+    const frag = document.createDocumentFragment();
+    const letters = [];
+
+    originalNodes.forEach((node) => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        node.textContent.split(/( )/).forEach((token) => {
+          if (token === '') return;
+          if (token === ' ') {
+            frag.appendChild(document.createTextNode(' '));
+            return;
+          }
+          for (const ch of token) {
+            const span = document.createElement('span');
+            span.className = 'letter';
+            span.textContent = ch;
+            frag.appendChild(span);
+            letters.push(span);
+          }
+        });
+      } else {
+        frag.appendChild(node);
+      }
+    });
+
+    container.textContent = '';
+    container.appendChild(frag);
+    return letters;
+  }
+
+  // Sets every letter to a random scattered position/rotation, invisible,
+  // with transitions off — a snapshot the browser can paint before we
+  // switch anything on.
+  function scatterHidden(letters, opts) {
+    letters.forEach((el) => {
+      const x = (Math.random() * 2 - 1) * opts.spreadX;
+      const y = (Math.random() * 2 - 1) * opts.spreadY;
+      const r = (Math.random() * 2 - 1) * opts.spreadR;
+      el.style.transition = 'none';
+      el.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg)`;
+      el.style.opacity = '0';
+    });
+  }
+
+  // Re-enables transitions (each letter with its own random delay, for a
+  // swarm rather than a strict left-to-right wave) and clears the inline
+  // transform/opacity so letters animate back to their natural position.
+  function settle(letters, opts, onComplete) {
+    if (!letters.length) {
+      if (onComplete) onComplete();
+      return;
+    }
+    let maxDelay = 0;
+    letters.forEach((el) => {
+      const delay = Math.random() * opts.maxDelay;
+      if (delay > maxDelay) maxDelay = delay;
+      el.style.transition =
+        `transform ${opts.transformDur}ms cubic-bezier(0.16,1,0.3,1) ${delay}ms, ` +
+        `opacity ${opts.opacityDur}ms ease ${delay}ms`;
+      el.style.transform = '';
+      el.style.opacity = '';
+    });
+    if (onComplete) {
+      setTimeout(onComplete, maxDelay + Math.max(opts.transformDur, opts.opacityDur));
+    }
+  }
+
+  const stage = document.getElementById('stage');
+  const title = document.getElementById('title');
+  const subtitle = document.getElementById('subtitle');
+  const intro = document.getElementById('intro');
+  const nextBtn = document.getElementById('nextBtn');
+  const pieceView = document.getElementById('pieceView');
+  const backBtn = document.getElementById('backBtn');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  try {
+    if (reduceMotion) {
+      stage.style.opacity = '1';
+      nextBtn.classList.add('visible');
+    } else {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+
+      const titleLetters = buildLetters(title);
+      const subtitleLetters = buildLetters(subtitle);
+      const introLetters = buildLetters(intro);
+
+      const titleOpts = { spreadX: Math.min(w * 0.42, 480), spreadY: Math.min(h * 0.35, 360),
+                           spreadR: 75, maxDelay: 550, transformDur: 950, opacityDur: 750 };
+      const subtitleOpts = { spreadX: Math.min(w * 0.32, 380), spreadY: Math.min(h * 0.28, 300),
+                              spreadR: 55, maxDelay: 750, transformDur: 850, opacityDur: 650 };
+      const introOpts = { spreadX: Math.min(w * 0.3, 340), spreadY: Math.min(h * 0.24, 260),
+                           spreadR: 50, maxDelay: 700, transformDur: 800, opacityDur: 600 };
+
+      // Scatter everything while the page is still blank...
+      scatterHidden(titleLetters, titleOpts);
+      scatterHidden(subtitleLetters, subtitleOpts);
+      scatterHidden(introLetters, introOpts);
+
+      // ...then reveal the stage. Nothing shows yet since every letter is
+      // individually invisible.
+      stage.style.opacity = '1';
+
+      setTimeout(() => {
+        settle(titleLetters, titleOpts, () => {
+          setTimeout(() => {
+            settle(subtitleLetters, subtitleOpts, () => {
+              setTimeout(() => {
+                settle(introLetters, introOpts, () => {
+                  nextBtn.classList.add('visible');
+                });
+              }, 150);
+            });
+          }, 150);
+        });
+      }, 60);
+    }
+  } catch (e) {
+    stage.style.opacity = '1';
+    nextBtn.classList.add('visible');
+  }
+
+  // Simple crossfade between the two full-page views: fade the current
+  // one out, swap which is in the document flow, then fade the other in.
+  function switchView(hideEl, showEl) {
+    hideEl.style.transition = 'opacity 0.45s ease';
+    hideEl.style.opacity = '0';
+    setTimeout(() => {
+      hideEl.style.display = 'none';
+      showEl.style.display = 'flex';
+      void showEl.offsetWidth; // force reflow before animating opacity in
+      showEl.style.transition = 'opacity 0.55s ease';
+      showEl.style.opacity = '1';
+    }, 450);
+  }
+
+  nextBtn.addEventListener('click', () => switchView(stage, pieceView));
+  backBtn.addEventListener('click', () => switchView(pieceView, stage));
+</script>
+
+</body>
+</html>
