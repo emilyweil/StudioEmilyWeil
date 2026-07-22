@@ -251,8 +251,23 @@
       <iframe src="https://player.vimeo.com/video/1054556129?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Anthropometrics on Light Background"></iframe>
     </div>
     <div class="btn-row">
-      <button class="round-btn pulse-btn visible" id="nextPieceBtn" type="button" aria-label="Next piece">&gt;</button>
+      <button class="round-btn pulse-btn visible" id="nextPieceBtn" type="button" aria-label="Next piece: Several People Are Typing">&gt;</button>
     </div>
+  </div>
+
+  <div class="view" id="pieceView2">
+    <div class="back-row">
+      <button class="round-btn" id="backBtn2" type="button" aria-label="Back to previous piece">&lt;</button>
+    </div>
+    <h2 class="piece-title">Several People Are Typing</h2>
+    <p class="piece-text">&ldquo;Several People Typing&rdquo;, my final piece for the Vertical Crypto Art Residency, is a nod to the history of scrapbooks and photo collages &ndash; deemed &ldquo;women&rsquo;s work&rdquo; or &ldquo;women&rsquo;s accomplishments&rdquo; during the Victorian era. These collages were often about identity, memory and the experience of new technologies of the day.</p>
+    <p class="piece-text">Algorithmically generated and coded in p5js, the collage combines snippets from a variety of sources: text from the highly active VCA discord during the residency; tweets from the @vcaresidency feed; IRL objects (e.g. a ring light, a trackball mouse) that sat on my desk during the residency; and flow fields &ldquo;like&rdquo; ❤️ hearts as well as profile pictures of other artists in the residency.</p>
+    <p class="piece-text">The pfps (profile pictures) become visible up close in a print, or when you zoom into the digital image. They allude to photographic portraits of the Victorian era &ndash; a new and accessible technology at that time &ndash; that were often cut out and pasted into women&rsquo;s collages.</p>
+    <p class="piece-text">The background displays layered graphs of everyday data &ndash; e.g. the temperature in NYC, and price charts for ETH, XTZ and the S&amp;P. On the lower right sits an ellipsis, a symbol ever-present in real-time chat that shows when a conversation is paused&hellip; while people are typing.</p>
+    <p class="piece-text">&ldquo;Several People Are Typing&rdquo; was published on <a href="https://objkt.com/auction/e/LN3a8Wy5" target="_blank" rel="noopener noreferrer">Objkt</a>.</p>
+    <p class="piece-text">Later I created a collection called &ldquo;Events Witnessed&rdquo; that&rsquo;s like &ldquo;Several People Are Typing&rdquo; in its collaging of various cultural artifacts.</p>
+    <p class="piece-text">&ldquo;Events Witnessed&rdquo; is like a scrapbook of bitcoin culture. Inscribed as an ordinal on the day BTC hit $100K, it combines snippets from a variety of sources: on the background are BTC and S&amp;P 500 price chart data from 2024 up until the day BTC reached $100K; text from the Bitcoin whitepaper; orange &ldquo;like&rdquo; 🧡 hearts; laser eyes; QR code textures; and IRL objects (e.g. a ring light, mug or pear) that might sit on my desk.</p>
+    <p class="piece-text">&ldquo;Events Witnessed&rdquo; was published as an ordinals collection in BTC <a href="https://gamma.io/ordinals/collections/events-witnessed-by-emily-weil" target="_blank" rel="noopener noreferrer">here</a>.</p>
   </div>
 
 <script>
@@ -335,6 +350,8 @@
   const nextPieceBtn = document.getElementById('nextPieceBtn');
   const pieceView = document.getElementById('pieceView');
   const backBtn = document.getElementById('backBtn');
+  const pieceView2 = document.getElementById('pieceView2');
+  const backBtn2 = document.getElementById('backBtn2');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   try {
@@ -400,8 +417,8 @@
 
   nextBtn.addEventListener('click', () => switchView(stage, pieceView));
   backBtn.addEventListener('click', () => switchView(pieceView, stage));
-  // Placeholder until a second piece exists — loops back home for now.
-  nextPieceBtn.addEventListener('click', () => switchView(pieceView, stage));
+  nextPieceBtn.addEventListener('click', () => switchView(pieceView, pieceView2));
+  backBtn2.addEventListener('click', () => switchView(pieceView2, pieceView));
 </script>
 
 </body>
