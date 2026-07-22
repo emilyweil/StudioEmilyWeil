@@ -27,19 +27,24 @@
 
   body {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
     min-height: 100vh;
     font-family: 'Inter', sans-serif;
   }
 
-  /* Shared layout for both the home view and the piece view. */
+  /* Shared layout for both the home view and the piece view. margin: auto
+     vertically centers content that's shorter than the viewport, but lets
+     taller content (like the piece view with two videos) start at the top
+     and scroll normally instead of overflowing unreachably above the
+     visible area — a classic pitfall of centering with align-items alone. */
   .view {
     display: flex;
     flex-direction: column;
     max-width: 640px;
     width: 100%;
     padding: 2rem;
+    margin: auto 0;
   }
 
   /* Home view: blank until JS reveals it. The catch-all at the bottom of
@@ -51,11 +56,15 @@
     opacity: 0;
   }
 
-  /* Piece view: hidden entirely until a piece is opened. */
+  /* Piece view: hidden entirely until a piece is opened. Uses a uniform
+     flex `gap` for spacing between every child (title, paragraphs, videos,
+     buttons) instead of individual margins — margins on flex children don't
+     collapse, so per-element margins were producing uneven gaps. */
   #pieceView {
     display: none;
     align-items: flex-start;
     text-align: left;
+    gap: 1.4rem;
     opacity: 0;
   }
 
@@ -98,11 +107,14 @@
     margin-top: 1.6rem;
   }
 
+  #pieceView .btn-row {
+    margin-top: 0;
+  }
+
   .back-row {
     align-self: stretch;
     display: flex;
     justify-content: flex-start;
-    margin-bottom: 1.6rem;
   }
 
   .round-btn {
@@ -137,7 +149,7 @@
     color: var(--bg);
   }
 
-  #nextBtn::after {
+  .pulse-btn::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -146,7 +158,7 @@
     opacity: 0;
   }
 
-  #nextBtn.visible::after {
+  .pulse-btn.visible::after {
     animation: pulse-ring 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
@@ -161,7 +173,7 @@
     font-weight: 700;
     font-size: clamp(1.5rem, 4.5vw, 2.2rem);
     letter-spacing: -0.01em;
-    margin: 0 0 1.1rem 0;
+    margin: 0;
   }
 
   .piece-text {
@@ -170,7 +182,7 @@
     font-size: 1rem;
     line-height: 1.7;
     color: var(--ink);
-    margin: 0 0 1.1rem 0;
+    margin: 0;
   }
 
   .piece-text a {
@@ -182,7 +194,7 @@
     width: 100%;
     max-width: 420px;
     aspect-ratio: 3 / 4;
-    margin: 0.4rem auto 0.2rem auto;
+    margin: 0 auto;
     background: #000;
   }
 
@@ -196,7 +208,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    #nextBtn.visible::after {
+    .pulse-btn.visible::after {
       animation: none;
       opacity: 0;
     }
@@ -210,7 +222,7 @@
     <p class="subtitle" id="subtitle">Hello! I’m a digital artist based in NYC.<br>My work is all code-based.</p>
     <p class="intro-line" id="intro">Here's a selection of pieces I've created over the years.</p>
     <div class="btn-row">
-      <button class="round-btn" id="nextBtn" type="button" aria-label="View first piece: Anthropometrics">&gt;</button>
+      <button class="round-btn pulse-btn" id="nextBtn" type="button" aria-label="View first piece: Anthropometrics">&gt;</button>
     </div>
   </div>
 
@@ -228,6 +240,9 @@
     <p class="piece-text">And the other on a light background:</p>
     <div class="video-embed">
       <iframe src="https://player.vimeo.com/video/1054556129?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Anthropometrics on Light Background"></iframe>
+    </div>
+    <div class="btn-row">
+      <button class="round-btn pulse-btn visible" id="nextPieceBtn" type="button" aria-label="Next piece">&gt;</button>
     </div>
   </div>
 
@@ -308,6 +323,7 @@
   const subtitle = document.getElementById('subtitle');
   const intro = document.getElementById('intro');
   const nextBtn = document.getElementById('nextBtn');
+  const nextPieceBtn = document.getElementById('nextPieceBtn');
   const pieceView = document.getElementById('pieceView');
   const backBtn = document.getElementById('backBtn');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -375,6 +391,8 @@
 
   nextBtn.addEventListener('click', () => switchView(stage, pieceView));
   backBtn.addEventListener('click', () => switchView(pieceView, stage));
+  // Placeholder until a second piece exists — loops back home for now.
+  nextPieceBtn.addEventListener('click', () => switchView(pieceView, stage));
 </script>
 
 </body>
