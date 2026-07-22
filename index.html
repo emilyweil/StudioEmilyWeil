@@ -117,7 +117,7 @@
     margin-top: 1.6rem;
   }
 
-  #pieceView .btn-row {
+  #pieceView .btn-row, #pieceView2 .btn-row {
     margin-top: 0;
   }
 
@@ -251,7 +251,7 @@
     </div>
     <h2 class="piece-title">Anthropometrics</h2>
     <div class="video-embed">
-      <iframe src="https://player.vimeo.com/video/1054556037?h=d3db32e9e0&badge=0&background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Anthropometrics on Dark Background"></iframe>
+      <iframe src="https://player.vimeo.com/video/1054556037?h=d3db32e9e0&badge=0&background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479#t=0s" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Anthropometrics on Dark Background"></iframe>
     </div>
     <p class="piece-text">A commissioned work, <em>Anthropometrics</em> responds to Yves Klein&rsquo;s <em>Anthropometries</em>, from 1960, which was a kind of performance piece in which naked women dipped in blue paint made impressions of their bodies on a canvas. You can watch footage of <em>Anthropometries</em> <a href="https://www.youtube.com/watch?v=gj9nHa7FtQQ" target="_blank" rel="noopener noreferrer">here</a>.</p>
     <p class="piece-text">Instead of naked female models, I used data from my body &ndash; sleep data, daily steps and heart rate &ndash; to render an image. Data points connected by randomized lines give an impression of flowers, a traditionally feminine form. The work starts with the kind of spinning loading symbols that typically display while waiting for data to load.</p>
@@ -277,9 +277,10 @@
     <p class="piece-text">The background displays layered graphs of everyday data &ndash; e.g. the temperature in NYC, and price charts for ETH, XTZ and the S&amp;P. On the lower right sits an ellipsis, a symbol ever-present in real-time chat that shows when a conversation is paused&hellip; while people are typing.</p>
     <img class="piece-image" src="BackgroundForCollage-1-1536x2048.png" alt="Layered background price-chart graphs from Several People Are Typing">
     <p class="piece-text">&ldquo;Several People Are Typing&rdquo; was published on <a href="https://objkt.com/auction/e/LN3a8Wy5" target="_blank" rel="noopener noreferrer">Objkt</a>.</p>
-    <p class="piece-text">Later I created a collection called &ldquo;Events Witnessed&rdquo; that&rsquo;s like &ldquo;Several People Are Typing&rdquo; in its collaging of various cultural artifacts.</p>
-    <p class="piece-text">&ldquo;Events Witnessed&rdquo; is like a scrapbook of bitcoin culture. Inscribed as an ordinal on the day BTC hit $100K, it combines snippets from a variety of sources: on the background are BTC and S&amp;P 500 price chart data from 2024 up until the day BTC reached $100K; text from the Bitcoin whitepaper; orange &ldquo;like&rdquo; 🧡 hearts; laser eyes; QR code textures; and IRL objects (e.g. a ring light, mug or pear) that might sit on my desk.</p>
     <p class="piece-text">&ldquo;Events Witnessed&rdquo; was published as an ordinals collection in BTC <a href="https://gamma.io/ordinals/collections/events-witnessed-by-emily-weil" target="_blank" rel="noopener noreferrer">here</a>.</p>
+    <div class="btn-row">
+      <button class="round-btn pulse-btn visible" id="nextPieceBtn2" type="button" aria-label="Next piece">&gt;</button>
+    </div>
   </div>
 
 <script>
@@ -364,6 +365,7 @@
   const backBtn = document.getElementById('backBtn');
   const pieceView2 = document.getElementById('pieceView2');
   const backBtn2 = document.getElementById('backBtn2');
+  const nextPieceBtn2 = document.getElementById('nextPieceBtn2');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   try {
@@ -432,6 +434,8 @@
   backBtn.addEventListener('click', () => switchView(pieceView, stage));
   nextPieceBtn.addEventListener('click', () => switchView(pieceView, pieceView2));
   backBtn2.addEventListener('click', () => switchView(pieceView2, pieceView));
+  // Placeholder until a third piece exists — loops back home for now.
+  nextPieceBtn2.addEventListener('click', () => switchView(pieceView2, stage));
 </script>
 
 </body>
