@@ -100,6 +100,16 @@
     transform: translate(0, 0) rotate(0deg);
   }
 
+  .mobile-break {
+    display: none;
+  }
+
+  @media (max-width: 600px) {
+    .mobile-break {
+      display: inline;
+    }
+  }
+
   .btn-row {
     align-self: stretch;
     display: flex;
@@ -220,7 +230,7 @@
   <div class="view" id="stage">
     <h1 class="title" id="title">Studio Emily Weil</h1>
     <p class="subtitle" id="subtitle">Hello! I’m a digital artist based in NYC.<br>My work is all code-based.</p>
-    <p class="intro-line" id="intro">Here's a selection of pieces I've created over the years.</p>
+    <p class="intro-line" id="intro">Here's a selection of pieces I've created<br class="mobile-break"> over the years.</p>
     <div class="btn-row">
       <button class="round-btn pulse-btn" id="nextBtn" type="button" aria-label="View first piece: Anthropometrics">&gt;</button>
     </div>
@@ -231,13 +241,12 @@
       <button class="round-btn" id="backBtn" type="button" aria-label="Back to home">&lt;</button>
     </div>
     <h2 class="piece-title">Anthropometrics</h2>
-    <p class="piece-text">A commissioned work, <em>Anthropometrics</em> responds to Yves Klein&rsquo;s <em>Anthropometries</em>, from 1960, which was a kind of performance piece in which naked women dipped in blue paint made impressions of their bodies on a canvas. You can watch footage of <em>Anthropometries</em> <a href="https://www.youtube.com/watch?v=gj9nHa7FtQQ" target="_blank" rel="noopener noreferrer">here</a>.</p>
-    <p class="piece-text">Instead of naked female models, I used data from my body &ndash; sleep data, daily steps and heart rate &ndash; to render an image. Data points connected by randomized lines give an impression of flowers, a traditionally feminine form. The work starts with the kind of spinning loading symbols that typically display while waiting for data to load.</p>
-    <p class="piece-text">I inscribed two Anthropometrics as Ordinals, Bitcoin-based NFTs, one on a dark background:</p>
     <div class="video-embed">
       <iframe src="https://player.vimeo.com/video/1054556037?h=d3db32e9e0&badge=0&background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Anthropometrics on Dark Background"></iframe>
     </div>
-    <p class="piece-text">And the other on a light background:</p>
+    <p class="piece-text">A commissioned work, <em>Anthropometrics</em> responds to Yves Klein&rsquo;s <em>Anthropometries</em>, from 1960, which was a kind of performance piece in which naked women dipped in blue paint made impressions of their bodies on a canvas. You can watch footage of <em>Anthropometries</em> <a href="https://www.youtube.com/watch?v=gj9nHa7FtQQ" target="_blank" rel="noopener noreferrer">here</a>.</p>
+    <p class="piece-text">Instead of naked female models, I used data from my body &ndash; sleep data, daily steps and heart rate &ndash; to render an image. Data points connected by randomized lines give an impression of flowers, a traditionally feminine form. The work starts with the kind of spinning loading symbols that typically display while waiting for data to load.</p>
+    <p class="piece-text">I inscribed two Anthropometrics as Ordinals, Bitcoin-based NFTs, one on a dark background (seen above), and the other on a light background:</p>
     <div class="video-embed">
       <iframe src="https://player.vimeo.com/video/1054556129?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Anthropometrics on Light Background"></iframe>
     </div>
