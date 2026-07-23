@@ -210,6 +210,11 @@
     background: #000;
   }
 
+  .video-embed.video-embed-wide {
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
   .video-embed iframe {
     position: absolute;
     top: 0;
@@ -287,12 +292,12 @@
       <button class="round-btn" id="backBtn3" type="button" aria-label="Back to previous piece">&lt;</button>
     </div>
     <h2 class="piece-title">Proof of What Happened</h2>
-    <div class="video-embed">
+    <div class="video-embed video-embed-wide">
       <iframe id="video3" data-src="https://player.vimeo.com/video/1071153113?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Proof of What Happened"></iframe>
     </div>
     <p class="piece-text">&ldquo;Proof of What Happened&rdquo; (a phrase from the bitcoin whitepaper) combines a range of data and digital artifacts &mdash; including BTC price charts, heartbeat graphs, standard arrow and heart icons &mdash; to create an image somewhere between online and IRL.</p>
-    <p class="piece-text">This final image was printed and framed:</p>
     <p class="piece-text">If you look closely, you&rsquo;ll see it&rsquo;s comprised of snippets of historical BTC price charts.</p>
+    <img class="piece-image" src="closeUpOfProofOfWhatHappened.jpg" alt="Close-up detail of Proof of What Happened, showing historical BTC price chart snippets">
     <p class="piece-text">&ldquo;Proof of What Happened&rdquo; was inscribed and then sold as an ordinal on the Bitcoin blockchain <a href="https://gamma.io/ordinals/collections/proof-of-what-happened-by-emily-weil" target="_blank" rel="noopener noreferrer">here</a>.</p>
     <div class="btn-row">
       <button class="round-btn pulse-btn visible" id="nextPieceBtn3" type="button" aria-label="Next piece">&gt;</button>
