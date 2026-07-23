@@ -53,7 +53,7 @@
   /* Piece views: hidden entirely until opened. Uses a uniform flex `gap`
      for spacing between children instead of individual margins, since
      margins on flex children don't collapse. */
-  #pieceView, #pieceView2, #pieceView3, #pieceView4 {
+  #pieceView, #pieceView2, #pieceView3, #pieceView4, #pieceView5 {
     display: none;
     align-items: flex-start;
     text-align: left;
@@ -106,7 +106,7 @@
     margin-bottom: 1.6rem;
   }
 
-  #pieceView .top-nav, #pieceView2 .top-nav, #pieceView3 .top-nav, #pieceView4 .top-nav {
+  #pieceView .top-nav, #pieceView2 .top-nav, #pieceView3 .top-nav, #pieceView4 .top-nav, #pieceView5 .top-nav {
     margin-bottom: 0;
   }
 
@@ -138,7 +138,7 @@
     margin-top: 1.6rem;
   }
 
-  #pieceView .bottom-nav, #pieceView2 .bottom-nav, #pieceView3 .bottom-nav, #pieceView4 .bottom-nav {
+  #pieceView .bottom-nav, #pieceView2 .bottom-nav, #pieceView3 .bottom-nav, #pieceView4 .bottom-nav, #pieceView5 .bottom-nav {
     margin-top: 0;
   }
 
@@ -231,6 +231,15 @@
     transform-origin: center;
   }
 
+  .video-embed.video-embed-crop {
+    overflow: hidden;
+  }
+
+  .video-embed-crop iframe {
+    transform: scale(1.05);
+    transform-origin: center;
+  }
+
   .video-embed iframe {
     position: absolute;
     top: 0;
@@ -262,7 +271,7 @@
     <p class="piece-text">A commissioned work, <em>Anthropometrics</em> responds to Yves Klein&rsquo;s <em>Anthropometries</em>, from 1960, which was a kind of performance piece in which naked women dipped in blue paint made impressions of their bodies on a canvas. You can watch footage of <em>Anthropometries</em> <a href="https://www.youtube.com/watch?v=gj9nHa7FtQQ" target="_blank" rel="noopener noreferrer">here</a>.</p>
     <p class="piece-text">Instead of naked female models, I used data from my body &ndash; sleep data, daily steps and heart rate &ndash; to render an image. Data points connected by randomized lines give an impression of flowers, a traditionally feminine form. The work starts with the kind of spinning loading symbols that typically display while waiting for data to load.</p>
     <p class="piece-text">I inscribed two Anthropometrics as Ordinals, Bitcoin-based NFTs, one on a dark background (seen above), and the other on a light background:</p>
-    <div class="video-embed">
+    <div class="video-embed video-embed-crop">
       <iframe id="video2" data-src="https://player.vimeo.com/video/1054556129?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Anthropometrics on Light Background"></iframe>
     </div>
     <div class="bottom-nav">
@@ -316,7 +325,7 @@
     <div class="top-nav">
       <button class="round-btn" data-goto="pieceView3" aria-label="Back to previous piece">&lt;</button>
       <a class="home-link" href="#" data-goto="stage">Studio Emily Weil</a>
-      <button class="round-btn" data-goto="stage" aria-label="Next piece">&gt;</button>
+      <button class="round-btn" data-goto="pieceView5" aria-label="Next piece: After Even Night">&gt;</button>
     </div>
     <h2 class="piece-title">Symbol 1</h2>
     <p class="piece-text">Computer code is everywhere, often hidden. &ldquo;Symbol 1&rdquo; makes it visible.</p>
@@ -328,6 +337,28 @@
     <p class="piece-text"><a href="https://www.artblocks.io/collections/presents/projects/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/411" target="_blank" rel="noopener noreferrer">Symbol 1 was published on Artblocks</a>.</p>
     <div class="bottom-nav">
       <button class="round-btn" data-goto="pieceView3" aria-label="Back to previous piece">&lt;</button>
+      <button class="round-btn pulse-btn" data-goto="pieceView5" aria-label="Next piece: After Even Night">&gt;</button>
+    </div>
+  </div>
+
+  <div class="view" id="pieceView5">
+    <div class="top-nav">
+      <button class="round-btn" data-goto="pieceView4" aria-label="Back to previous piece">&lt;</button>
+      <a class="home-link" href="#" data-goto="stage">Studio Emily Weil</a>
+      <button class="round-btn" data-goto="stage" aria-label="Next piece">&gt;</button>
+    </div>
+    <h2 class="piece-title">After Even Night</h2>
+    <div class="video-embed">
+      <iframe id="video4" data-src="https://player.vimeo.com/video/1088511729?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="After Even Night"></iframe>
+    </div>
+    <p class="piece-text">After Even Night takes the viewer on a kind of journey: An endlessly changing view, as if through the window of a train, through a kind of abstract landscape that mixes digital and real life. Stop any time to take a picture.</p>
+    <p class="piece-text">Scrolling past in unexpected yet familiar ways, After Even Night illustrates our strange relationship with time and space; how memory makes that relationship less linear and defined, melding one place with the next, merging past and present.</p>
+    <p class="piece-text">Collectors can click on the animation at any time to stop, and then double click to download an image &ndash; but the journey continues, layering and evolving, indefinitely. A few travel pics:</p>
+    <img class="piece-image" src="AfterEvenNight1.png" alt="After Even Night, travel image 1">
+    <img class="piece-image" src="AfterEvenNight2.jpg" alt="After Even Night, travel image 2">
+    <img class="piece-image" src="AfterEvenNight3.png" alt="After Even Night, travel image 3">
+    <div class="bottom-nav">
+      <button class="round-btn" data-goto="pieceView4" aria-label="Back to previous piece">&lt;</button>
       <button class="round-btn pulse-btn" data-goto="stage" aria-label="Next piece">&gt;</button>
     </div>
   </div>
@@ -337,9 +368,11 @@
   const pieceView = document.getElementById('pieceView');
   const pieceView2 = document.getElementById('pieceView2');
   const pieceView3 = document.getElementById('pieceView3');
+  const pieceView5 = document.getElementById('pieceView5');
   const video1 = document.getElementById('video1');
   const video2 = document.getElementById('video2');
   const video3 = document.getElementById('video3');
+  const video4 = document.getElementById('video4');
 
   // Plain, immediate reveal of the home screen — no animation.
   stage.style.opacity = '1';
@@ -361,6 +394,8 @@
       loadVideo(video2);
     } else if (view === pieceView3) {
       loadVideo(video3);
+    } else if (view === pieceView5) {
+      loadVideo(video4);
     }
   }
 
