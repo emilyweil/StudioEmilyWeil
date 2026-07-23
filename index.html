@@ -53,7 +53,7 @@
   /* Piece views: hidden entirely until opened. Uses a uniform flex `gap`
      for spacing between children instead of individual margins, since
      margins on flex children don't collapse. */
-  #pieceView, #pieceView2, #pieceView3, #pieceView4, #pieceView5, #pieceView6 {
+  #pieceView, #pieceView2, #pieceView3, #pieceView4, #pieceView5, #pieceView6, #pieceView7 {
     display: none;
     align-items: flex-start;
     text-align: left;
@@ -106,7 +106,7 @@
     margin-bottom: 1.6rem;
   }
 
-  #pieceView .top-nav, #pieceView2 .top-nav, #pieceView3 .top-nav, #pieceView4 .top-nav, #pieceView5 .top-nav, #pieceView6 .top-nav {
+  #pieceView .top-nav, #pieceView2 .top-nav, #pieceView3 .top-nav, #pieceView4 .top-nav, #pieceView5 .top-nav, #pieceView6 .top-nav, #pieceView7 .top-nav {
     margin-bottom: 0;
   }
 
@@ -138,7 +138,7 @@
     margin-top: 1.6rem;
   }
 
-  #pieceView .bottom-nav, #pieceView2 .bottom-nav, #pieceView3 .bottom-nav, #pieceView4 .bottom-nav, #pieceView5 .bottom-nav, #pieceView6 .bottom-nav {
+  #pieceView .bottom-nav, #pieceView2 .bottom-nav, #pieceView3 .bottom-nav, #pieceView4 .bottom-nav, #pieceView5 .bottom-nav, #pieceView6 .bottom-nav, #pieceView7 .bottom-nav {
     margin-top: 0;
   }
 
@@ -372,7 +372,7 @@
     <div class="top-nav">
       <button class="round-btn" data-goto="pieceView5" aria-label="Back to previous piece">&lt;</button>
       <a class="home-link" href="#" data-goto="stage">Studio Emily Weil</a>
-      <button class="round-btn" data-goto="stage" aria-label="Next piece">&gt;</button>
+      <button class="round-btn" data-goto="pieceView7" aria-label="Next piece: Tweed">&gt;</button>
     </div>
     <h2 class="piece-title">Pressed</h2>
     <img class="piece-image" src="PressedFall.jpg" alt="Pressed Fall, a generative artwork by Emily Weil">
@@ -382,6 +382,28 @@
     <p class="piece-text"><a href="https://foundation.app/collection/eweil" target="_blank" rel="noopener noreferrer">Pressed was published on Foundation.</a></p>
     <div class="bottom-nav">
       <button class="round-btn" data-goto="pieceView5" aria-label="Back to previous piece">&lt;</button>
+      <button class="round-btn pulse-btn" data-goto="pieceView7" aria-label="Next piece: Tweed">&gt;</button>
+    </div>
+  </div>
+
+  <div class="view" id="pieceView7">
+    <div class="top-nav">
+      <button class="round-btn" data-goto="pieceView6" aria-label="Back to previous piece">&lt;</button>
+      <a class="home-link" href="#" data-goto="stage">Studio Emily Weil</a>
+      <button class="round-btn" data-goto="stage" aria-label="Next piece">&gt;</button>
+    </div>
+    <h2 class="piece-title">Tweed</h2>
+    <div class="video-embed video-embed-wide video-embed-crop-lg">
+      <iframe id="video5" data-src="https://player.vimeo.com/video/25874971?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Tweed, opening party footage in Beverly Hills"></iframe>
+    </div>
+    <p class="piece-text">At Chanel stores in Beverly Hills and Hong Kong, an abstracted Chanel-like fabric weaves the silhouettes of viewers into its own shifting, colorful threads. Above is footage from the opening party in Beverly Hills, showing the piece in action.</p>
+    <p class="piece-text">The piece responds in real time to the motion of visitors ascending and descending a staircase positioned in front of the screen.</p>
+    <div class="video-embed video-embed-wide video-embed-crop-lg">
+      <iframe id="video6" data-src="https://player.vimeo.com/video/189959249?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Tweed, staircase interaction footage"></iframe>
+    </div>
+    <p class="piece-text">Commissioned by Peter Marino Architects and Chanel.</p>
+    <div class="bottom-nav">
+      <button class="round-btn" data-goto="pieceView6" aria-label="Back to previous piece">&lt;</button>
       <button class="round-btn pulse-btn" data-goto="stage" aria-label="Next piece">&gt;</button>
     </div>
   </div>
@@ -392,10 +414,13 @@
   const pieceView2 = document.getElementById('pieceView2');
   const pieceView3 = document.getElementById('pieceView3');
   const pieceView5 = document.getElementById('pieceView5');
+  const pieceView7 = document.getElementById('pieceView7');
   const video1 = document.getElementById('video1');
   const video2 = document.getElementById('video2');
   const video3 = document.getElementById('video3');
   const video4 = document.getElementById('video4');
+  const video5 = document.getElementById('video5');
+  const video6 = document.getElementById('video6');
 
   // Plain, immediate reveal of the home screen — no animation.
   stage.style.opacity = '1';
@@ -419,6 +444,9 @@
       loadVideo(video3);
     } else if (view === pieceView5) {
       loadVideo(video4);
+    } else if (view === pieceView7) {
+      loadVideo(video5);
+      loadVideo(video6);
     }
   }
 
