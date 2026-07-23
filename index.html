@@ -60,7 +60,7 @@
      flex `gap` for spacing between every child (title, paragraphs, videos,
      buttons) instead of individual margins — margins on flex children don't
      collapse, so per-element margins were producing uneven gaps. */
-  #pieceView, #pieceView2 {
+  #pieceView, #pieceView2, #pieceView3 {
     display: none;
     align-items: flex-start;
     text-align: left;
@@ -117,7 +117,7 @@
     margin-top: 1.6rem;
   }
 
-  #pieceView .btn-row, #pieceView2 .btn-row {
+  #pieceView .btn-row, #pieceView2 .btn-row, #pieceView3 .btn-row {
     margin-top: 0;
   }
 
@@ -278,7 +278,24 @@
     <img class="piece-image" src="BackgroundForCollage-1-1536x2048.png" alt="Layered background price-chart graphs from Several People Are Typing">
     <p class="piece-text">&ldquo;Several People Are Typing&rdquo; was published on <a href="https://objkt.com/auction/e/LN3a8Wy5" target="_blank" rel="noopener noreferrer">Objkt</a>.</p>
     <div class="btn-row">
-      <button class="round-btn pulse-btn visible" id="nextPieceBtn2" type="button" aria-label="Next piece">&gt;</button>
+      <button class="round-btn pulse-btn visible" id="nextPieceBtn2" type="button" aria-label="Next piece: Proof of What Happened">&gt;</button>
+    </div>
+  </div>
+
+  <div class="view" id="pieceView3">
+    <div class="back-row">
+      <button class="round-btn" id="backBtn3" type="button" aria-label="Back to previous piece">&lt;</button>
+    </div>
+    <h2 class="piece-title">Proof of What Happened</h2>
+    <div class="video-embed">
+      <iframe id="video3" data-src="https://player.vimeo.com/video/1071153113?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Proof of What Happened"></iframe>
+    </div>
+    <p class="piece-text">&ldquo;Proof of What Happened&rdquo; (a phrase from the bitcoin whitepaper) combines a range of data and digital artifacts &mdash; including BTC price charts, heartbeat graphs, standard arrow and heart icons &mdash; to create an image somewhere between online and IRL.</p>
+    <p class="piece-text">This final image was printed and framed:</p>
+    <p class="piece-text">If you look closely, you&rsquo;ll see it&rsquo;s comprised of snippets of historical BTC price charts.</p>
+    <p class="piece-text">&ldquo;Proof of What Happened&rdquo; was inscribed and then sold as an ordinal on the Bitcoin blockchain <a href="https://gamma.io/ordinals/collections/proof-of-what-happened-by-emily-weil" target="_blank" rel="noopener noreferrer">here</a>.</p>
+    <div class="btn-row">
+      <button class="round-btn pulse-btn visible" id="nextPieceBtn3" type="button" aria-label="Next piece">&gt;</button>
     </div>
   </div>
 
@@ -426,6 +443,7 @@
   const backBtn = document.getElementById('backBtn');
   const video1 = document.getElementById('video1');
   const video2 = document.getElementById('video2');
+  const video3 = document.getElementById('video3');
 
   // Forces a video iframe to (re)load from scratch, so it always starts at
   // its true beginning — needed because these are autoplaying background
@@ -441,6 +459,9 @@
   const pieceView2 = document.getElementById('pieceView2');
   const backBtn2 = document.getElementById('backBtn2');
   const nextPieceBtn2 = document.getElementById('nextPieceBtn2');
+  const pieceView3 = document.getElementById('pieceView3');
+  const backBtn3 = document.getElementById('backBtn3');
+  const nextPieceBtn3 = document.getElementById('nextPieceBtn3');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   try {
@@ -515,8 +536,13 @@
     loadVideo(video1);
     loadVideo(video2);
   });
-  // Placeholder until a third piece exists — loops back home for now.
-  nextPieceBtn2.addEventListener('click', () => switchView(pieceView2, stage));
+  nextPieceBtn2.addEventListener('click', () => {
+    switchView(pieceView2, pieceView3);
+    loadVideo(video3);
+  });
+  backBtn3.addEventListener('click', () => switchView(pieceView3, pieceView2));
+  // Placeholder until a fourth piece exists — loops back home for now.
+  nextPieceBtn3.addEventListener('click', () => switchView(pieceView3, stage));
 </script>
 
 </body>
