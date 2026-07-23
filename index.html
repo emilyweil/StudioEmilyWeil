@@ -33,11 +33,9 @@
     font-family: 'Inter', sans-serif;
   }
 
-  /* Shared layout for both the home view and the piece view. margin: auto
-     vertically centers content that's shorter than the viewport, but lets
-     taller content (like the piece view with two videos) start at the top
-     and scroll normally instead of overflowing unreachably above the
-     visible area — a classic pitfall of centering with align-items alone. */
+  /* Shared layout for every screen. margin: auto vertically centers
+     content shorter than the viewport, but lets taller content (pieces
+     with images/videos) start at the top and scroll normally. */
   .view {
     display: flex;
     flex-direction: column;
@@ -47,19 +45,14 @@
     margin: auto 0;
   }
 
-  /* Home view: blank until JS reveals it. The catch-all at the bottom of
-     the script forces this back to opacity 1 if JS is ever unable to
-     complete, so the page never gets stuck blank. */
   #stage {
     align-items: center;
     text-align: center;
-    opacity: 0;
   }
 
-  /* Piece view: hidden entirely until a piece is opened. Uses a uniform
-     flex `gap` for spacing between every child (title, paragraphs, videos,
-     buttons) instead of individual margins — margins on flex children don't
-     collapse, so per-element margins were producing uneven gaps. */
+  /* Piece views: hidden entirely until opened. Uses a uniform flex `gap`
+     for spacing between children instead of individual margins, since
+     margins on flex children don't collapse. */
   #pieceView, #pieceView2, #pieceView3 {
     display: none;
     align-items: flex-start;
@@ -94,12 +87,6 @@
     margin: 1.4rem 0 0 0;
   }
 
-  .letter {
-    display: inline-block;
-    opacity: 1;
-    transform: translate(0, 0) rotate(0deg);
-  }
-
   .mobile-break {
     display: none;
   }
@@ -110,6 +97,52 @@
     }
   }
 
+  /* Top bar: back arrow, small home link, forward arrow. */
+  .top-nav {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.6rem;
+  }
+
+  #pieceView .top-nav, #pieceView2 .top-nav, #pieceView3 .top-nav {
+    margin-bottom: 0;
+  }
+
+  .nav-hidden {
+    visibility: hidden;
+  }
+
+  .home-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+  }
+
+  .home-link:hover {
+    opacity: 1;
+  }
+
+  /* Bottom bar: back + forward together, beneath the page's content. */
+  .bottom-nav {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.6rem;
+  }
+
+  #pieceView .bottom-nav, #pieceView2 .bottom-nav, #pieceView3 .bottom-nav {
+    margin-top: 0;
+  }
+
+  /* Home page's single forward button beneath the intro line. */
   .btn-row {
     align-self: stretch;
     display: flex;
@@ -117,65 +150,35 @@
     margin-top: 1.6rem;
   }
 
-  #pieceView .btn-row, #pieceView2 .btn-row, #pieceView3 .btn-row {
-    margin-top: 0;
-  }
-
-  .back-row {
-    align-self: stretch;
-    display: flex;
-    justify-content: flex-start;
-  }
-
   .round-btn {
     -webkit-appearance: none;
     appearance: none;
     position: relative;
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    border: 1.5px solid var(--ink);
-    background: var(--bg);
-    color: var(--ink);
-    display: flex;
+    width: auto;
+    height: auto;
+    border: none;
+    background: none;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    vertical-align: middle;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 1.3rem;
+    font-weight: 400;
+    font-size: clamp(1.4rem, 4.5vw, 2.4rem);
+    line-height: 1;
+    letter-spacing: -0.01em;
     text-decoration: none;
     padding: 0;
     cursor: pointer;
-    opacity: 0;
-    transition: opacity 1s ease, transform 0.25s ease, background 0.25s ease, color 0.25s ease;
-  }
-
-  .round-btn.visible {
+    color: var(--ink);
     opacity: 1;
+    transition: transform 0.2s ease, opacity 0.2s ease, color 0.2s ease;
   }
 
   .round-btn:hover {
-    transform: scale(1.08);
-    background: var(--ink);
-    color: var(--bg);
-  }
-
-  .pulse-btn::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    border: 1.5px solid var(--ink);
-    opacity: 0;
-  }
-
-  .pulse-btn.visible::after {
-    animation: pulse-ring 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
-  @keyframes pulse-ring {
-    0% { transform: scale(1); opacity: 0.55; }
-    70% { transform: scale(1.55); opacity: 0; }
-    100% { transform: scale(1.55); opacity: 0; }
+    transform: scale(1.1);
+    opacity: 1;
+    color: var(--ink);
   }
 
   .piece-title {
@@ -199,6 +202,13 @@
 
   .piece-text a {
     color: var(--ink);
+  }
+
+  .piece-image {
+    align-self: stretch;
+    width: 100%;
+    height: auto;
+    display: block;
   }
 
   .video-embed {
@@ -229,20 +239,6 @@
     height: 100%;
     border: 0;
   }
-
-  .piece-image {
-    align-self: stretch;
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .pulse-btn.visible::after {
-      animation: none;
-      opacity: 0;
-    }
-  }
 </style>
 </head>
 <body>
@@ -250,15 +246,14 @@
   <div class="view" id="stage">
     <h1 class="title" id="title">Studio Emily Weil</h1>
     <p class="subtitle" id="subtitle">Hello! I’m a digital artist based in NYC.<br>My work is all code-based.</p>
-    <p class="intro-line" id="intro">Here's a selection of pieces I've created<br class="mobile-break"> over the years.</p>
-    <div class="btn-row">
-      <button class="round-btn pulse-btn" id="nextBtn" type="button" aria-label="View first piece: Anthropometrics">&gt;</button>
-    </div>
+    <p class="intro-line" id="intro">Here's a selection of pieces I've created<br class="mobile-break"> over the years. <button class="round-btn" id="nextBtn" type="button" data-goto="pieceView" aria-label="View first piece: Anthropometrics">&gt;</button></p>
   </div>
 
   <div class="view" id="pieceView">
-    <div class="back-row">
-      <button class="round-btn" id="backBtn" type="button" aria-label="Back to home">&lt;</button>
+    <div class="top-nav">
+      <button class="round-btn" data-goto="stage" aria-label="Back to home">&lt;</button>
+      <a class="home-link" href="#" data-goto="stage">Studio Emily Weil</a>
+      <button class="round-btn" data-goto="pieceView2" aria-label="Next piece: Several People Are Typing">&gt;</button>
     </div>
     <h2 class="piece-title">Anthropometrics</h2>
     <div class="video-embed">
@@ -270,14 +265,17 @@
     <div class="video-embed">
       <iframe id="video2" data-src="https://player.vimeo.com/video/1054556129?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Anthropometrics on Light Background"></iframe>
     </div>
-    <div class="btn-row">
-      <button class="round-btn pulse-btn visible" id="nextPieceBtn" type="button" aria-label="Next piece: Several People Are Typing">&gt;</button>
+    <div class="bottom-nav">
+      <button class="round-btn" data-goto="stage" aria-label="Back to home">&lt;</button>
+      <button class="round-btn pulse-btn" data-goto="pieceView2" aria-label="Next piece: Several People Are Typing">&gt;</button>
     </div>
   </div>
 
   <div class="view" id="pieceView2">
-    <div class="back-row">
-      <button class="round-btn" id="backBtn2" type="button" aria-label="Back to previous piece">&lt;</button>
+    <div class="top-nav">
+      <button class="round-btn" data-goto="pieceView" aria-label="Back to previous piece">&lt;</button>
+      <a class="home-link" href="#" data-goto="stage">Studio Emily Weil</a>
+      <button class="round-btn" data-goto="pieceView3" aria-label="Next piece: Proof of What Happened">&gt;</button>
     </div>
     <h2 class="piece-title">Several People Are Typing</h2>
     <img class="piece-image" src="VCAResidency_SeveralPeopleArtTyping_EmilyWeil_LowRes.png" alt="Several People Are Typing, a generative collage by Emily Weil">
@@ -288,14 +286,17 @@
     <p class="piece-text">The background displays layered graphs of everyday data &ndash; e.g. the temperature in NYC, and price charts for ETH, XTZ and the S&amp;P. On the lower right sits an ellipsis, a symbol ever-present in real-time chat that shows when a conversation is paused&hellip; while people are typing.</p>
     <img class="piece-image" src="BackgroundForCollage-1-1536x2048.png" alt="Layered background price-chart graphs from Several People Are Typing">
     <p class="piece-text">&ldquo;Several People Are Typing&rdquo; was published on <a href="https://objkt.com/auction/e/LN3a8Wy5" target="_blank" rel="noopener noreferrer">Objkt</a>.</p>
-    <div class="btn-row">
-      <button class="round-btn pulse-btn visible" id="nextPieceBtn2" type="button" aria-label="Next piece: Proof of What Happened">&gt;</button>
+    <div class="bottom-nav">
+      <button class="round-btn" data-goto="pieceView" aria-label="Back to previous piece">&lt;</button>
+      <button class="round-btn pulse-btn" data-goto="pieceView3" aria-label="Next piece: Proof of What Happened">&gt;</button>
     </div>
   </div>
 
   <div class="view" id="pieceView3">
-    <div class="back-row">
-      <button class="round-btn" id="backBtn3" type="button" aria-label="Back to previous piece">&lt;</button>
+    <div class="top-nav">
+      <button class="round-btn" data-goto="pieceView2" aria-label="Back to previous piece">&lt;</button>
+      <a class="home-link" href="#" data-goto="stage">Studio Emily Weil</a>
+      <button class="round-btn" data-goto="stage" aria-label="Next piece">&gt;</button>
     </div>
     <h2 class="piece-title">Proof of What Happened</h2>
     <div class="video-embed video-embed-wide">
@@ -305,223 +306,47 @@
     <p class="piece-text">If you look closely, you&rsquo;ll see it&rsquo;s comprised of snippets of historical BTC price charts.</p>
     <img class="piece-image" src="closeUpOfProofOfWhatHappened.jpg" alt="Close-up detail of Proof of What Happened, showing historical BTC price chart snippets">
     <p class="piece-text">&ldquo;Proof of What Happened&rdquo; was inscribed and then sold as an ordinal on the Bitcoin blockchain <a href="https://gamma.io/ordinals/collections/proof-of-what-happened-by-emily-weil" target="_blank" rel="noopener noreferrer">here</a>.</p>
-    <div class="btn-row">
-      <button class="round-btn pulse-btn visible" id="nextPieceBtn3" type="button" aria-label="Next piece">&gt;</button>
+    <div class="bottom-nav">
+      <button class="round-btn" data-goto="pieceView2" aria-label="Back to previous piece">&lt;</button>
+      <button class="round-btn pulse-btn" data-goto="stage" aria-label="Next piece">&gt;</button>
     </div>
   </div>
 
 <script>
-  // Walks the container's existing child nodes so structural tags like
-  // <br> are preserved as-is, while text nodes get split into one
-  // <span class="letter"> per character (spaces stay as plain text).
-  function buildLetters(container) {
-    const originalNodes = Array.from(container.childNodes);
-    const frag = document.createDocumentFragment();
-    const letters = [];
-
-    originalNodes.forEach((node) => {
-      if (node.nodeType === Node.TEXT_NODE) {
-        node.textContent.split(/( )/).forEach((token) => {
-          if (token === '') return;
-          if (token === ' ') {
-            frag.appendChild(document.createTextNode(' '));
-            return;
-          }
-          for (const ch of token) {
-            const span = document.createElement('span');
-            span.className = 'letter';
-            span.textContent = ch;
-            frag.appendChild(span);
-            letters.push(span);
-          }
-        });
-      } else {
-        frag.appendChild(node);
-      }
-    });
-
-    container.textContent = '';
-    container.appendChild(frag);
-    return letters;
-  }
-
-  // Sets every letter to a random scattered position/rotation, invisible,
-  // with transitions off — a snapshot the browser can paint before we
-  // switch anything on.
-  function scatterHidden(letters, opts) {
-    letters.forEach((el) => {
-      const x = (Math.random() * 2 - 1) * opts.spreadX;
-      const y = (Math.random() * 2 - 1) * opts.spreadY;
-      const r = (Math.random() * 2 - 1) * opts.spreadR;
-      el.style.transition = 'none';
-      el.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg)`;
-      el.style.opacity = '0';
-    });
-  }
-
-  // Re-enables transitions (each letter with its own random delay, for a
-  // swarm rather than a strict left-to-right wave) and clears the inline
-  // transform/opacity so letters animate back to their natural position.
-  function settle(letters, opts, onComplete) {
-    if (!letters.length) {
-      if (onComplete) onComplete();
-      return;
-    }
-    let maxDelay = 0;
-    letters.forEach((el) => {
-      const delay = Math.random() * opts.maxDelay;
-      if (delay > maxDelay) maxDelay = delay;
-      el.style.transition =
-        `transform ${opts.transformDur}ms cubic-bezier(0.16,1,0.3,1) ${delay}ms, ` +
-        `opacity ${opts.opacityDur}ms ease ${delay}ms`;
-      el.style.transform = '';
-      el.style.opacity = '';
-    });
-    if (onComplete) {
-      setTimeout(onComplete, maxDelay + Math.max(opts.transformDur, opts.opacityDur));
-    }
-  }
-
-  // Style 2 — a clean, orderly wave: every letter simply slides straight up
-  // into place, one after another in reading order (no scatter, no
-  // rotation), like a typewriter cascading into a sentence.
-  function waveHidden(letters, opts) {
-    letters.forEach((el) => {
-      el.style.transition = 'none';
-      el.style.transform = `translateY(${opts.offsetY}px)`;
-      el.style.opacity = '0';
-    });
-  }
-
-  function waveSettle(letters, opts, onComplete) {
-    if (!letters.length) {
-      if (onComplete) onComplete();
-      return;
-    }
-    let maxDelay = 0;
-    letters.forEach((el, i) => {
-      const delay = i * opts.stepDelay;
-      if (delay > maxDelay) maxDelay = delay;
-      el.style.transition =
-        `transform ${opts.transformDur}ms cubic-bezier(0.16,1,0.3,1) ${delay}ms, ` +
-        `opacity ${opts.opacityDur}ms ease ${delay}ms`;
-      el.style.transform = '';
-      el.style.opacity = '';
-    });
-    if (onComplete) {
-      setTimeout(onComplete, maxDelay + Math.max(opts.transformDur, opts.opacityDur));
-    }
-  }
-
-  // Style 3 — a soft bloom: every letter grows up from tiny to full size
-  // with a gentle overshoot (no position change at all, no rotation), like
-  // it's materializing in place, at scattered random moments.
-  function bloomHidden(letters, opts) {
-    letters.forEach((el) => {
-      el.style.transition = 'none';
-      el.style.transform = `scale(${opts.startScale})`;
-      el.style.opacity = '0';
-    });
-  }
-
-  function bloomSettle(letters, opts, onComplete) {
-    if (!letters.length) {
-      if (onComplete) onComplete();
-      return;
-    }
-    let maxDelay = 0;
-    letters.forEach((el) => {
-      const delay = Math.random() * opts.maxDelay;
-      if (delay > maxDelay) maxDelay = delay;
-      el.style.transition =
-        `transform ${opts.transformDur}ms cubic-bezier(0.34,1.56,0.64,1) ${delay}ms, ` +
-        `opacity ${opts.opacityDur}ms ease ${delay}ms`;
-      el.style.transform = '';
-      el.style.opacity = '';
-    });
-    if (onComplete) {
-      setTimeout(onComplete, maxDelay + Math.max(opts.transformDur, opts.opacityDur));
-    }
-  }
-
   const stage = document.getElementById('stage');
-  const title = document.getElementById('title');
-  const subtitle = document.getElementById('subtitle');
-  const intro = document.getElementById('intro');
-  const nextBtn = document.getElementById('nextBtn');
-  const nextPieceBtn = document.getElementById('nextPieceBtn');
   const pieceView = document.getElementById('pieceView');
-  const backBtn = document.getElementById('backBtn');
+  const pieceView2 = document.getElementById('pieceView2');
+  const pieceView3 = document.getElementById('pieceView3');
   const video1 = document.getElementById('video1');
   const video2 = document.getElementById('video2');
   const video3 = document.getElementById('video3');
 
+  // Plain, immediate reveal of the home screen — no animation.
+  stage.style.opacity = '1';
+
   // Forces a video iframe to (re)load from scratch, so it always starts at
   // its true beginning — needed because these are autoplaying background
   // videos that would otherwise start playing the instant they're parsed,
-  // even while hidden behind display:none, and be seconds in by the time
-  // the person actually navigates to them.
+  // even while hidden behind display:none.
   function loadVideo(iframe) {
     iframe.src = 'about:blank';
     requestAnimationFrame(() => {
       iframe.src = iframe.dataset.src;
     });
   }
-  const pieceView2 = document.getElementById('pieceView2');
-  const backBtn2 = document.getElementById('backBtn2');
-  const nextPieceBtn2 = document.getElementById('nextPieceBtn2');
-  const pieceView3 = document.getElementById('pieceView3');
-  const backBtn3 = document.getElementById('backBtn3');
-  const nextPieceBtn3 = document.getElementById('nextPieceBtn3');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  try {
-    if (reduceMotion) {
-      stage.style.opacity = '1';
-      nextBtn.classList.add('visible');
-    } else {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-
-      const titleLetters = buildLetters(title);
-      const subtitleLetters = buildLetters(subtitle);
-      const introLetters = buildLetters(intro);
-
-      const titleOpts = { spreadX: Math.min(w * 0.42, 480), spreadY: Math.min(h * 0.35, 360),
-                           spreadR: 75, maxDelay: 550, transformDur: 950, opacityDur: 750 };
-      const subtitleOpts = { offsetY: 26, stepDelay: 16, transformDur: 600, opacityDur: 500 };
-      const introOpts = { startScale: 0.35, maxDelay: 500, transformDur: 650, opacityDur: 550 };
-
-      // Scatter everything while the page is still blank...
-      scatterHidden(titleLetters, titleOpts);
-      waveHidden(subtitleLetters, subtitleOpts);
-      bloomHidden(introLetters, introOpts);
-
-      // ...then reveal the stage. Nothing shows yet since every letter is
-      // individually invisible.
-      stage.style.opacity = '1';
-
-      setTimeout(() => {
-        settle(titleLetters, titleOpts, () => {
-          setTimeout(() => {
-            waveSettle(subtitleLetters, subtitleOpts, () => {
-              setTimeout(() => {
-                bloomSettle(introLetters, introOpts, () => {
-                  nextBtn.classList.add('visible');
-                });
-              }, 150);
-            });
-          }, 150);
-        });
-      }, 60);
+  function reloadVideosFor(view) {
+    if (view === pieceView) {
+      loadVideo(video1);
+      loadVideo(video2);
+    } else if (view === pieceView3) {
+      loadVideo(video3);
     }
-  } catch (e) {
-    stage.style.opacity = '1';
-    nextBtn.classList.add('visible');
   }
 
-  // Simple crossfade between the two full-page views: fade the current
-  // one out, swap which is in the document flow, then fade the other in.
+  // Simple crossfade between full-page views: fade the current one out,
+  // swap which is in the document flow, scroll to the top so the new
+  // view's title is visible, then fade the new one in.
   function switchView(hideEl, showEl) {
     hideEl.style.transition = 'opacity 0.45s ease';
     hideEl.style.opacity = '0';
@@ -535,25 +360,20 @@
     }, 450);
   }
 
-  nextBtn.addEventListener('click', () => {
-    switchView(stage, pieceView);
-    loadVideo(video1);
-    loadVideo(video2);
+  // Every nav control (top bar back/home/forward, bottom bar back/forward,
+  // and the home page's own forward button) carries data-goto pointing at
+  // the id of the view it should lead to. One delegated handler drives all
+  // of them.
+  document.querySelectorAll('[data-goto]').forEach((el) => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.getElementById(el.dataset.goto);
+      const current = el.closest('.view');
+      if (!target || !current || target === current) return;
+      switchView(current, target);
+      reloadVideosFor(target);
+    });
   });
-  backBtn.addEventListener('click', () => switchView(pieceView, stage));
-  nextPieceBtn.addEventListener('click', () => switchView(pieceView, pieceView2));
-  backBtn2.addEventListener('click', () => {
-    switchView(pieceView2, pieceView);
-    loadVideo(video1);
-    loadVideo(video2);
-  });
-  nextPieceBtn2.addEventListener('click', () => {
-    switchView(pieceView2, pieceView3);
-    loadVideo(video3);
-  });
-  backBtn3.addEventListener('click', () => switchView(pieceView3, pieceView2));
-  // Placeholder until a fourth piece exists — loops back home for now.
-  nextPieceBtn3.addEventListener('click', () => switchView(pieceView3, stage));
 </script>
 
 </body>
