@@ -53,7 +53,7 @@
   /* Piece views: hidden entirely until opened. Uses a uniform flex `gap`
      for spacing between children instead of individual margins, since
      margins on flex children don't collapse. */
-  #pieceView, #pieceView2, #pieceView3, #pieceView4, #pieceView5, #pieceView6, #pieceView7, #pieceView8, #pieceView9 {
+  #pieceView, #pieceView2, #pieceView3, #pieceView4, #pieceView5, #pieceView6, #pieceView7, #pieceView8, #pieceView9, #pieceView10, #pieceView11, #pieceView12, #pieceView13 {
     display: none;
     align-items: flex-start;
     text-align: left;
@@ -106,7 +106,7 @@
     margin-bottom: 1.6rem;
   }
 
-  #pieceView .top-nav, #pieceView2 .top-nav, #pieceView3 .top-nav, #pieceView4 .top-nav, #pieceView5 .top-nav, #pieceView6 .top-nav, #pieceView7 .top-nav, #pieceView8 .top-nav, #pieceView9 .top-nav {
+  #pieceView .top-nav, #pieceView2 .top-nav, #pieceView3 .top-nav, #pieceView4 .top-nav, #pieceView5 .top-nav, #pieceView6 .top-nav, #pieceView7 .top-nav, #pieceView8 .top-nav, #pieceView9 .top-nav, #pieceView10 .top-nav, #pieceView11 .top-nav, #pieceView12 .top-nav, #pieceView13 .top-nav {
     margin-bottom: 0;
   }
 
@@ -138,7 +138,7 @@
     margin-top: 1.6rem;
   }
 
-  #pieceView .bottom-nav, #pieceView2 .bottom-nav, #pieceView3 .bottom-nav, #pieceView4 .bottom-nav, #pieceView5 .bottom-nav, #pieceView6 .bottom-nav, #pieceView7 .bottom-nav, #pieceView8 .bottom-nav, #pieceView9 .bottom-nav {
+  #pieceView .bottom-nav, #pieceView2 .bottom-nav, #pieceView3 .bottom-nav, #pieceView4 .bottom-nav, #pieceView5 .bottom-nav, #pieceView6 .bottom-nav, #pieceView7 .bottom-nav, #pieceView8 .bottom-nav, #pieceView9 .bottom-nav, #pieceView10 .bottom-nav, #pieceView11 .bottom-nav, #pieceView12 .bottom-nav, #pieceView13 .bottom-nav {
     margin-top: 0;
   }
 
@@ -442,7 +442,7 @@
     <div class="top-nav">
       <button class="round-btn" data-goto="pieceView8" aria-label="Back to previous piece">&lt;</button>
       <a class="home-link" href="#" data-goto="stage">Studio Emily Weil</a>
-      <button class="round-btn" data-goto="stage" aria-label="Next piece">&gt;</button>
+      <button class="round-btn" data-goto="pieceView10" aria-label="Next piece: Plunge">&gt;</button>
     </div>
     <h2 class="piece-title">Video Frottis</h2>
     <p class="piece-text">A series of videos in which motion reveals ghostly contours of the physical world, almost like a brass rubbing.</p>
@@ -461,6 +461,79 @@
     <p class="piece-text">Commissioned by Chanel for its Global Art Collection, showcased in Chanel stores around the world.</p>
     <div class="bottom-nav">
       <button class="round-btn" data-goto="pieceView8" aria-label="Back to previous piece">&lt;</button>
+      <button class="round-btn pulse-btn" data-goto="pieceView10" aria-label="Next piece: Plunge">&gt;</button>
+    </div>
+  </div>
+
+  <div class="view" id="pieceView10">
+    <div class="top-nav">
+      <button class="round-btn" data-goto="pieceView9" aria-label="Back to previous piece">&lt;</button>
+      <a class="home-link" href="#" data-goto="stage">Studio Emily Weil</a>
+      <button class="round-btn" data-goto="pieceView11" aria-label="Next piece: Perfume">&gt;</button>
+    </div>
+    <h2 class="piece-title">Plunge</h2>
+    <div class="video-embed">
+      <iframe id="video11" data-src="https://player.vimeo.com/video/70285346?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Plunge"></iframe>
+    </div>
+    <p class="piece-text">At the Novotel Hotel in Times Square, this monumental-scale video collage (displayed across two columns) shows bathers around the world leaping, dashing, falling and ice-carving their way into the brisk waters of a New Year.</p>
+    <p class="piece-text">Commissioned by Stonehill &amp; Taylor Architects.</p>
+    <div class="bottom-nav">
+      <button class="round-btn" data-goto="pieceView9" aria-label="Back to previous piece">&lt;</button>
+      <button class="round-btn pulse-btn" data-goto="pieceView11" aria-label="Next piece: Perfume">&gt;</button>
+    </div>
+  </div>
+
+  <div class="view" id="pieceView11">
+    <div class="top-nav">
+      <button class="round-btn" data-goto="pieceView10" aria-label="Back to previous piece">&lt;</button>
+      <a class="home-link" href="#" data-goto="stage">Studio Emily Weil</a>
+      <button class="round-btn" data-goto="pieceView12" aria-label="Next piece: Cants and Flitches">&gt;</button>
+    </div>
+    <h2 class="piece-title">Perfume</h2>
+    <div class="video-embed">
+      <iframe id="video12" data-src="https://player.vimeo.com/video/26030109?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Perfume"></iframe>
+    </div>
+    <p class="piece-text">At the Chanel Store in Soho, NYC, this video offers a series of studies of the Chanel C logo on the surface of a giant perfume bottle.</p>
+    <p class="piece-text">Commissioned by Peter Marino Architects and Chanel.</p>
+    <div class="bottom-nav">
+      <button class="round-btn" data-goto="pieceView10" aria-label="Back to previous piece">&lt;</button>
+      <button class="round-btn pulse-btn" data-goto="pieceView12" aria-label="Next piece: Cants and Flitches">&gt;</button>
+    </div>
+  </div>
+
+  <div class="view" id="pieceView12">
+    <div class="top-nav">
+      <button class="round-btn" data-goto="pieceView11" aria-label="Back to previous piece">&lt;</button>
+      <a class="home-link" href="#" data-goto="stage">Studio Emily Weil</a>
+      <button class="round-btn" data-goto="pieceView13" aria-label="Next piece: Platform 1">&gt;</button>
+    </div>
+    <h2 class="piece-title">Cants and Flitches</h2>
+    <div class="video-embed">
+      <iframe id="video13" data-src="https://player.vimeo.com/video/105424781?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Cants and Flitches"></iframe>
+    </div>
+    <p class="piece-text">Displayed in the lobby of Radisson Blu, Minneapolis, &ldquo;Cants and Flitches&rdquo; is inspired by the history of logging and mills that built and shaped Minneapolis. (In logging terminology &ldquo;cants&rdquo; are unfinished logs to be processed; &ldquo;flitches&rdquo; are unfinished planks.)</p>
+    <p class="piece-text">The video is generated by a kind of digital sawmill &mdash; an algorithm that deconstructs and reconstructs images of trees and parts of trees &ndash; to create new, semi-natural, harmonious images.</p>
+    <p class="piece-text">Commissioned by Stonehill &amp; Taylor Architects.</p>
+    <div class="bottom-nav">
+      <button class="round-btn" data-goto="pieceView11" aria-label="Back to previous piece">&lt;</button>
+      <button class="round-btn pulse-btn" data-goto="pieceView13" aria-label="Next piece: Platform 1">&gt;</button>
+    </div>
+  </div>
+
+  <div class="view" id="pieceView13">
+    <div class="top-nav">
+      <button class="round-btn" data-goto="pieceView12" aria-label="Back to previous piece">&lt;</button>
+      <a class="home-link" href="#" data-goto="stage">Studio Emily Weil</a>
+      <button class="round-btn" data-goto="stage" aria-label="Next piece">&gt;</button>
+    </div>
+    <h2 class="piece-title">Platform 1</h2>
+    <p class="piece-text">Commissioned by the Australian Center for Moving Image in Melbourne, this interactive piece uses historical footage of the railroad platform that once occupied this site. As visitors to the museum descend a stairway inside the main gallery, their motion reveals a video of commuters moving through this space a hundred years ago.</p>
+    <div class="video-embed">
+      <iframe id="video14" data-src="https://player.vimeo.com/video/195889271?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Platform 1"></iframe>
+    </div>
+    <p class="piece-text">The footage above (although very overexposed) gives a sense of how the piece appeared on location.</p>
+    <div class="bottom-nav">
+      <button class="round-btn" data-goto="pieceView12" aria-label="Back to previous piece">&lt;</button>
       <button class="round-btn pulse-btn" data-goto="stage" aria-label="Next piece">&gt;</button>
     </div>
   </div>
@@ -474,6 +547,10 @@
   const pieceView7 = document.getElementById('pieceView7');
   const pieceView8 = document.getElementById('pieceView8');
   const pieceView9 = document.getElementById('pieceView9');
+  const pieceView10 = document.getElementById('pieceView10');
+  const pieceView11 = document.getElementById('pieceView11');
+  const pieceView12 = document.getElementById('pieceView12');
+  const pieceView13 = document.getElementById('pieceView13');
   const video1 = document.getElementById('video1');
   const video2 = document.getElementById('video2');
   const video3 = document.getElementById('video3');
@@ -484,6 +561,10 @@
   const video8 = document.getElementById('video8');
   const video9 = document.getElementById('video9');
   const video10 = document.getElementById('video10');
+  const video11 = document.getElementById('video11');
+  const video12 = document.getElementById('video12');
+  const video13 = document.getElementById('video13');
+  const video14 = document.getElementById('video14');
 
   // Plain, immediate reveal of the home screen — no animation.
   stage.style.opacity = '1';
@@ -516,6 +597,14 @@
       loadVideo(video8);
       loadVideo(video9);
       loadVideo(video10);
+    } else if (view === pieceView10) {
+      loadVideo(video11);
+    } else if (view === pieceView11) {
+      loadVideo(video12);
+    } else if (view === pieceView12) {
+      loadVideo(video13);
+    } else if (view === pieceView13) {
+      loadVideo(video14);
     }
   }
 
