@@ -53,7 +53,7 @@
   /* Piece views: hidden entirely until opened. Uses a uniform flex `gap`
      for spacing between children instead of individual margins, since
      margins on flex children don't collapse. */
-  #pieceView, #pieceView2, #pieceView3 {
+  #pieceView, #pieceView2, #pieceView3, #pieceView4 {
     display: none;
     align-items: flex-start;
     text-align: left;
@@ -106,7 +106,7 @@
     margin-bottom: 1.6rem;
   }
 
-  #pieceView .top-nav, #pieceView2 .top-nav, #pieceView3 .top-nav {
+  #pieceView .top-nav, #pieceView2 .top-nav, #pieceView3 .top-nav, #pieceView4 .top-nav {
     margin-bottom: 0;
   }
 
@@ -138,7 +138,7 @@
     margin-top: 1.6rem;
   }
 
-  #pieceView .bottom-nav, #pieceView2 .bottom-nav, #pieceView3 .bottom-nav {
+  #pieceView .bottom-nav, #pieceView2 .bottom-nav, #pieceView3 .bottom-nav, #pieceView4 .bottom-nav {
     margin-top: 0;
   }
 
@@ -296,7 +296,7 @@
     <div class="top-nav">
       <button class="round-btn" data-goto="pieceView2" aria-label="Back to previous piece">&lt;</button>
       <a class="home-link" href="#" data-goto="stage">Studio Emily Weil</a>
-      <button class="round-btn" data-goto="stage" aria-label="Next piece">&gt;</button>
+      <button class="round-btn" data-goto="pieceView4" aria-label="Next piece: Symbol 1">&gt;</button>
     </div>
     <h2 class="piece-title">Proof of What Happened</h2>
     <div class="video-embed video-embed-wide">
@@ -308,6 +308,26 @@
     <p class="piece-text">&ldquo;Proof of What Happened&rdquo; was inscribed and then sold as an ordinal on the Bitcoin blockchain <a href="https://gamma.io/ordinals/collections/proof-of-what-happened-by-emily-weil" target="_blank" rel="noopener noreferrer">here</a>.</p>
     <div class="bottom-nav">
       <button class="round-btn" data-goto="pieceView2" aria-label="Back to previous piece">&lt;</button>
+      <button class="round-btn pulse-btn" data-goto="pieceView4" aria-label="Next piece: Symbol 1">&gt;</button>
+    </div>
+  </div>
+
+  <div class="view" id="pieceView4">
+    <div class="top-nav">
+      <button class="round-btn" data-goto="pieceView3" aria-label="Back to previous piece">&lt;</button>
+      <a class="home-link" href="#" data-goto="stage">Studio Emily Weil</a>
+      <button class="round-btn" data-goto="stage" aria-label="Next piece">&gt;</button>
+    </div>
+    <h2 class="piece-title">Symbol 1</h2>
+    <p class="piece-text">Computer code is everywhere, often hidden. &ldquo;Symbol 1&rdquo; makes it visible.</p>
+    <img class="piece-image" src="Symbol1_1.png" alt="Symbol 1, a generative artwork by Emily Weil made from its own source code">
+    <img class="piece-image" src="Symbol1_2.jpg" alt="Symbol 1, another iteration of the generative artwork">
+    <p class="piece-text">In this collection, each mark on the digital canvas is made by text of the algorithm that created it.</p>
+    <img class="piece-image" src="Symbol1_closeup.jpg" alt="Close-up of Symbol 1, showing the code text that forms each mark">
+    <p class="piece-text">When viewing Symbol 1, you&rsquo;re viewing its code &mdash; logic becoming art. Here is a close-up of the image above:</p>
+    <p class="piece-text"><a href="https://www.artblocks.io/collections/presents/projects/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/411" target="_blank" rel="noopener noreferrer">Symbol 1 was published on Artblocks</a>.</p>
+    <div class="bottom-nav">
+      <button class="round-btn" data-goto="pieceView3" aria-label="Back to previous piece">&lt;</button>
       <button class="round-btn pulse-btn" data-goto="stage" aria-label="Next piece">&gt;</button>
     </div>
   </div>
