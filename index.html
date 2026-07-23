@@ -231,6 +231,11 @@
     transform-origin: center;
   }
 
+  .video-embed-wide.video-embed-crop-lg iframe {
+    transform: scale(1.35);
+    transform-origin: center;
+  }
+
   .video-embed.video-embed-crop {
     overflow: hidden;
   }
@@ -348,7 +353,7 @@
       <button class="round-btn" data-goto="stage" aria-label="Next piece">&gt;</button>
     </div>
     <h2 class="piece-title">After Even Night</h2>
-    <div class="video-embed">
+    <div class="video-embed video-embed-wide video-embed-crop-lg">
       <iframe id="video4" data-src="https://player.vimeo.com/video/1088511729?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="After Even Night"></iframe>
     </div>
     <p class="piece-text">After Even Night takes the viewer on a kind of journey: An endlessly changing view, as if through the window of a train, through a kind of abstract landscape that mixes digital and real life. Stop any time to take a picture.</p>
