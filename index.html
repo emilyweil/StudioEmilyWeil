@@ -53,7 +53,7 @@
   /* Piece views: hidden entirely until opened. Uses a uniform flex `gap`
      for spacing between children instead of individual margins, since
      margins on flex children don't collapse. */
-  #pieceView, #pieceView2, #pieceView3, #pieceView4, #pieceView5, #pieceView6, #pieceView7 {
+  #pieceView, #pieceView2, #pieceView3, #pieceView4, #pieceView5, #pieceView6, #pieceView7, #pieceView8 {
     display: none;
     align-items: flex-start;
     text-align: left;
@@ -106,7 +106,7 @@
     margin-bottom: 1.6rem;
   }
 
-  #pieceView .top-nav, #pieceView2 .top-nav, #pieceView3 .top-nav, #pieceView4 .top-nav, #pieceView5 .top-nav, #pieceView6 .top-nav, #pieceView7 .top-nav {
+  #pieceView .top-nav, #pieceView2 .top-nav, #pieceView3 .top-nav, #pieceView4 .top-nav, #pieceView5 .top-nav, #pieceView6 .top-nav, #pieceView7 .top-nav, #pieceView8 .top-nav {
     margin-bottom: 0;
   }
 
@@ -138,7 +138,7 @@
     margin-top: 1.6rem;
   }
 
-  #pieceView .bottom-nav, #pieceView2 .bottom-nav, #pieceView3 .bottom-nav, #pieceView4 .bottom-nav, #pieceView5 .bottom-nav, #pieceView6 .bottom-nav, #pieceView7 .bottom-nav {
+  #pieceView .bottom-nav, #pieceView2 .bottom-nav, #pieceView3 .bottom-nav, #pieceView4 .bottom-nav, #pieceView5 .bottom-nav, #pieceView6 .bottom-nav, #pieceView7 .bottom-nav, #pieceView8 .bottom-nav {
     margin-top: 0;
   }
 
@@ -395,7 +395,7 @@
     <div class="top-nav">
       <button class="round-btn" data-goto="pieceView6" aria-label="Back to previous piece">&lt;</button>
       <a class="home-link" href="#" data-goto="stage">Studio Emily Weil</a>
-      <button class="round-btn" data-goto="stage" aria-label="Next piece">&gt;</button>
+      <button class="round-btn" data-goto="pieceView8" aria-label="Next piece: Chanel in C">&gt;</button>
     </div>
     <h2 class="piece-title">Tweed</h2>
     <div class="video-embed video-embed-wide video-embed-crop-lg">
@@ -409,6 +409,26 @@
     <p class="piece-text">Commissioned by Peter Marino Architects and Chanel.</p>
     <div class="bottom-nav">
       <button class="round-btn" data-goto="pieceView6" aria-label="Back to previous piece">&lt;</button>
+      <button class="round-btn pulse-btn" data-goto="pieceView8" aria-label="Next piece: Chanel in C">&gt;</button>
+    </div>
+  </div>
+
+  <div class="view" id="pieceView8">
+    <div class="top-nav">
+      <button class="round-btn" data-goto="pieceView7" aria-label="Back to previous piece">&lt;</button>
+      <a class="home-link" href="#" data-goto="stage">Studio Emily Weil</a>
+      <button class="round-btn" data-goto="stage" aria-label="Next piece">&gt;</button>
+    </div>
+    <h2 class="piece-title">Chanel in C</h2>
+    <div class="video-embed video-embed-wide video-embed-crop-lg">
+      <iframe id="video7" data-src="https://player.vimeo.com/video/26277246?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Chanel in C"></iframe>
+    </div>
+    <p class="piece-text">Chanel in C focuses on the intersection of IRL and digital experiences.</p>
+    <p class="piece-text">At the Chanel store in Beverly Hills, Chanel&rsquo;s C logos appear on a large screen in front of a stairway that&rsquo;s visible through a window off the street.</p>
+    <p class="piece-text">Chanel Cs respond in real time, in highly interactive and dynamic patterns, to the motion of viewers climbing and descending the staircase.</p>
+    <p class="piece-text">This installation was Commissioned by Peter Marino Architects and Chanel.</p>
+    <div class="bottom-nav">
+      <button class="round-btn" data-goto="pieceView7" aria-label="Back to previous piece">&lt;</button>
       <button class="round-btn pulse-btn" data-goto="stage" aria-label="Next piece">&gt;</button>
     </div>
   </div>
@@ -420,12 +440,14 @@
   const pieceView3 = document.getElementById('pieceView3');
   const pieceView5 = document.getElementById('pieceView5');
   const pieceView7 = document.getElementById('pieceView7');
+  const pieceView8 = document.getElementById('pieceView8');
   const video1 = document.getElementById('video1');
   const video2 = document.getElementById('video2');
   const video3 = document.getElementById('video3');
   const video4 = document.getElementById('video4');
   const video5 = document.getElementById('video5');
   const video6 = document.getElementById('video6');
+  const video7 = document.getElementById('video7');
 
   // Plain, immediate reveal of the home screen — no animation.
   stage.style.opacity = '1';
@@ -452,6 +474,8 @@
     } else if (view === pieceView7) {
       loadVideo(video5);
       loadVideo(video6);
+    } else if (view === pieceView8) {
+      loadVideo(video7);
     }
   }
 
