@@ -53,7 +53,7 @@
   /* Piece views: hidden entirely until opened. Uses a uniform flex `gap`
      for spacing between children instead of individual margins, since
      margins on flex children don't collapse. */
-  #pieceView, #pieceView2, #pieceView3, #pieceView4, #pieceView5 {
+  #pieceView, #pieceView2, #pieceView3, #pieceView4, #pieceView5, #pieceView6 {
     display: none;
     align-items: flex-start;
     text-align: left;
@@ -106,7 +106,7 @@
     margin-bottom: 1.6rem;
   }
 
-  #pieceView .top-nav, #pieceView2 .top-nav, #pieceView3 .top-nav, #pieceView4 .top-nav, #pieceView5 .top-nav {
+  #pieceView .top-nav, #pieceView2 .top-nav, #pieceView3 .top-nav, #pieceView4 .top-nav, #pieceView5 .top-nav, #pieceView6 .top-nav {
     margin-bottom: 0;
   }
 
@@ -138,7 +138,7 @@
     margin-top: 1.6rem;
   }
 
-  #pieceView .bottom-nav, #pieceView2 .bottom-nav, #pieceView3 .bottom-nav, #pieceView4 .bottom-nav, #pieceView5 .bottom-nav {
+  #pieceView .bottom-nav, #pieceView2 .bottom-nav, #pieceView3 .bottom-nav, #pieceView4 .bottom-nav, #pieceView5 .bottom-nav, #pieceView6 .bottom-nav {
     margin-top: 0;
   }
 
@@ -350,7 +350,7 @@
     <div class="top-nav">
       <button class="round-btn" data-goto="pieceView4" aria-label="Back to previous piece">&lt;</button>
       <a class="home-link" href="#" data-goto="stage">Studio Emily Weil</a>
-      <button class="round-btn" data-goto="stage" aria-label="Next piece">&gt;</button>
+      <button class="round-btn" data-goto="pieceView6" aria-label="Next piece: Pressed">&gt;</button>
     </div>
     <h2 class="piece-title">After Even Night</h2>
     <div class="video-embed video-embed-wide video-embed-crop-lg">
@@ -364,6 +364,24 @@
     <img class="piece-image" src="AfterEvenNight3.png" alt="After Even Night, travel image 3">
     <div class="bottom-nav">
       <button class="round-btn" data-goto="pieceView4" aria-label="Back to previous piece">&lt;</button>
+      <button class="round-btn pulse-btn" data-goto="pieceView6" aria-label="Next piece: Pressed">&gt;</button>
+    </div>
+  </div>
+
+  <div class="view" id="pieceView6">
+    <div class="top-nav">
+      <button class="round-btn" data-goto="pieceView5" aria-label="Back to previous piece">&lt;</button>
+      <a class="home-link" href="#" data-goto="stage">Studio Emily Weil</a>
+      <button class="round-btn" data-goto="stage" aria-label="Next piece">&gt;</button>
+    </div>
+    <h2 class="piece-title">Pressed</h2>
+    <img class="piece-image" src="PressedFall.jpg" alt="Pressed Fall, a generative artwork by Emily Weil">
+    <img class="piece-image" src="PressedSpring.jpg" alt="Pressed Spring, a generative artwork by Emily Weil">
+    <p class="piece-text">Pressed is a series of two 1 of 1s &ndash; Pressed Spring and Pressed Fall.</p>
+    <p class="piece-text">The digital equivalent of a pressed flower, an algorithm written in C++ collapses a video of a walk through the woods (25 seconds, 1500 frames) into a single image.</p>
+    <p class="piece-text"><a href="https://foundation.app/collection/eweil" target="_blank" rel="noopener noreferrer">Pressed was published on Foundation.</a></p>
+    <div class="bottom-nav">
+      <button class="round-btn" data-goto="pieceView5" aria-label="Back to previous piece">&lt;</button>
       <button class="round-btn pulse-btn" data-goto="stage" aria-label="Next piece">&gt;</button>
     </div>
   </div>
