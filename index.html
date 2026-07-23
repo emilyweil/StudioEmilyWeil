@@ -251,13 +251,13 @@
     </div>
     <h2 class="piece-title">Anthropometrics</h2>
     <div class="video-embed">
-      <iframe src="https://player.vimeo.com/video/1054556037?h=d3db32e9e0&badge=0&background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479#t=0s" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Anthropometrics on Dark Background"></iframe>
+      <iframe id="video1" data-src="https://player.vimeo.com/video/1054556037?h=d3db32e9e0&badge=0&background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Anthropometrics on Dark Background"></iframe>
     </div>
     <p class="piece-text">A commissioned work, <em>Anthropometrics</em> responds to Yves Klein&rsquo;s <em>Anthropometries</em>, from 1960, which was a kind of performance piece in which naked women dipped in blue paint made impressions of their bodies on a canvas. You can watch footage of <em>Anthropometries</em> <a href="https://www.youtube.com/watch?v=gj9nHa7FtQQ" target="_blank" rel="noopener noreferrer">here</a>.</p>
     <p class="piece-text">Instead of naked female models, I used data from my body &ndash; sleep data, daily steps and heart rate &ndash; to render an image. Data points connected by randomized lines give an impression of flowers, a traditionally feminine form. The work starts with the kind of spinning loading symbols that typically display while waiting for data to load.</p>
     <p class="piece-text">I inscribed two Anthropometrics as Ordinals, Bitcoin-based NFTs, one on a dark background (seen above), and the other on a light background:</p>
     <div class="video-embed">
-      <iframe src="https://player.vimeo.com/video/1054556129?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Anthropometrics on Light Background"></iframe>
+      <iframe id="video2" data-src="https://player.vimeo.com/video/1054556129?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Anthropometrics on Light Background"></iframe>
     </div>
     <div class="btn-row">
       <button class="round-btn pulse-btn visible" id="nextPieceBtn" type="button" aria-label="Next piece: Several People Are Typing">&gt;</button>
@@ -277,7 +277,6 @@
     <p class="piece-text">The background displays layered graphs of everyday data &ndash; e.g. the temperature in NYC, and price charts for ETH, XTZ and the S&amp;P. On the lower right sits an ellipsis, a symbol ever-present in real-time chat that shows when a conversation is paused&hellip; while people are typing.</p>
     <img class="piece-image" src="BackgroundForCollage-1-1536x2048.png" alt="Layered background price-chart graphs from Several People Are Typing">
     <p class="piece-text">&ldquo;Several People Are Typing&rdquo; was published on <a href="https://objkt.com/auction/e/LN3a8Wy5" target="_blank" rel="noopener noreferrer">Objkt</a>.</p>
-    <p class="piece-text">&ldquo;Events Witnessed&rdquo; was published as an ordinals collection in BTC <a href="https://gamma.io/ordinals/collections/events-witnessed-by-emily-weil" target="_blank" rel="noopener noreferrer">here</a>.</p>
     <div class="btn-row">
       <button class="round-btn pulse-btn visible" id="nextPieceBtn2" type="button" aria-label="Next piece">&gt;</button>
     </div>
@@ -355,6 +354,68 @@
     }
   }
 
+  // Style 2 — a clean, orderly wave: every letter simply slides straight up
+  // into place, one after another in reading order (no scatter, no
+  // rotation), like a typewriter cascading into a sentence.
+  function waveHidden(letters, opts) {
+    letters.forEach((el) => {
+      el.style.transition = 'none';
+      el.style.transform = `translateY(${opts.offsetY}px)`;
+      el.style.opacity = '0';
+    });
+  }
+
+  function waveSettle(letters, opts, onComplete) {
+    if (!letters.length) {
+      if (onComplete) onComplete();
+      return;
+    }
+    let maxDelay = 0;
+    letters.forEach((el, i) => {
+      const delay = i * opts.stepDelay;
+      if (delay > maxDelay) maxDelay = delay;
+      el.style.transition =
+        `transform ${opts.transformDur}ms cubic-bezier(0.16,1,0.3,1) ${delay}ms, ` +
+        `opacity ${opts.opacityDur}ms ease ${delay}ms`;
+      el.style.transform = '';
+      el.style.opacity = '';
+    });
+    if (onComplete) {
+      setTimeout(onComplete, maxDelay + Math.max(opts.transformDur, opts.opacityDur));
+    }
+  }
+
+  // Style 3 — a soft bloom: every letter grows up from tiny to full size
+  // with a gentle overshoot (no position change at all, no rotation), like
+  // it's materializing in place, at scattered random moments.
+  function bloomHidden(letters, opts) {
+    letters.forEach((el) => {
+      el.style.transition = 'none';
+      el.style.transform = `scale(${opts.startScale})`;
+      el.style.opacity = '0';
+    });
+  }
+
+  function bloomSettle(letters, opts, onComplete) {
+    if (!letters.length) {
+      if (onComplete) onComplete();
+      return;
+    }
+    let maxDelay = 0;
+    letters.forEach((el) => {
+      const delay = Math.random() * opts.maxDelay;
+      if (delay > maxDelay) maxDelay = delay;
+      el.style.transition =
+        `transform ${opts.transformDur}ms cubic-bezier(0.34,1.56,0.64,1) ${delay}ms, ` +
+        `opacity ${opts.opacityDur}ms ease ${delay}ms`;
+      el.style.transform = '';
+      el.style.opacity = '';
+    });
+    if (onComplete) {
+      setTimeout(onComplete, maxDelay + Math.max(opts.transformDur, opts.opacityDur));
+    }
+  }
+
   const stage = document.getElementById('stage');
   const title = document.getElementById('title');
   const subtitle = document.getElementById('subtitle');
@@ -363,6 +424,20 @@
   const nextPieceBtn = document.getElementById('nextPieceBtn');
   const pieceView = document.getElementById('pieceView');
   const backBtn = document.getElementById('backBtn');
+  const video1 = document.getElementById('video1');
+  const video2 = document.getElementById('video2');
+
+  // Forces a video iframe to (re)load from scratch, so it always starts at
+  // its true beginning — needed because these are autoplaying background
+  // videos that would otherwise start playing the instant they're parsed,
+  // even while hidden behind display:none, and be seconds in by the time
+  // the person actually navigates to them.
+  function loadVideo(iframe) {
+    iframe.src = 'about:blank';
+    requestAnimationFrame(() => {
+      iframe.src = iframe.dataset.src;
+    });
+  }
   const pieceView2 = document.getElementById('pieceView2');
   const backBtn2 = document.getElementById('backBtn2');
   const nextPieceBtn2 = document.getElementById('nextPieceBtn2');
@@ -382,15 +457,13 @@
 
       const titleOpts = { spreadX: Math.min(w * 0.42, 480), spreadY: Math.min(h * 0.35, 360),
                            spreadR: 75, maxDelay: 550, transformDur: 950, opacityDur: 750 };
-      const subtitleOpts = { spreadX: Math.min(w * 0.32, 380), spreadY: Math.min(h * 0.28, 300),
-                              spreadR: 55, maxDelay: 750, transformDur: 850, opacityDur: 650 };
-      const introOpts = { spreadX: Math.min(w * 0.3, 340), spreadY: Math.min(h * 0.24, 260),
-                           spreadR: 50, maxDelay: 700, transformDur: 800, opacityDur: 600 };
+      const subtitleOpts = { offsetY: 26, stepDelay: 16, transformDur: 600, opacityDur: 500 };
+      const introOpts = { startScale: 0.35, maxDelay: 500, transformDur: 650, opacityDur: 550 };
 
       // Scatter everything while the page is still blank...
       scatterHidden(titleLetters, titleOpts);
-      scatterHidden(subtitleLetters, subtitleOpts);
-      scatterHidden(introLetters, introOpts);
+      waveHidden(subtitleLetters, subtitleOpts);
+      bloomHidden(introLetters, introOpts);
 
       // ...then reveal the stage. Nothing shows yet since every letter is
       // individually invisible.
@@ -399,9 +472,9 @@
       setTimeout(() => {
         settle(titleLetters, titleOpts, () => {
           setTimeout(() => {
-            settle(subtitleLetters, subtitleOpts, () => {
+            waveSettle(subtitleLetters, subtitleOpts, () => {
               setTimeout(() => {
-                settle(introLetters, introOpts, () => {
+                bloomSettle(introLetters, introOpts, () => {
                   nextBtn.classList.add('visible');
                 });
               }, 150);
@@ -430,10 +503,18 @@
     }, 450);
   }
 
-  nextBtn.addEventListener('click', () => switchView(stage, pieceView));
+  nextBtn.addEventListener('click', () => {
+    switchView(stage, pieceView);
+    loadVideo(video1);
+    loadVideo(video2);
+  });
   backBtn.addEventListener('click', () => switchView(pieceView, stage));
   nextPieceBtn.addEventListener('click', () => switchView(pieceView, pieceView2));
-  backBtn2.addEventListener('click', () => switchView(pieceView2, pieceView));
+  backBtn2.addEventListener('click', () => {
+    switchView(pieceView2, pieceView);
+    loadVideo(video1);
+    loadVideo(video2);
+  });
   // Placeholder until a third piece exists — loops back home for now.
   nextPieceBtn2.addEventListener('click', () => switchView(pieceView2, stage));
 </script>
