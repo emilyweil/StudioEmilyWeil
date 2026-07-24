@@ -405,7 +405,7 @@
     </div>
     <h2 class="piece-title">Redacted</h2>
     <div class="video-embed">
-      <iframe id="video16" data-src="https://player.vimeo.com/video/1212508398?autoplay=1&muted=1&loop=1&controls=1&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Redacted"></iframe>
+      <iframe id="video16" data-src="https://player.vimeo.com/video/1212508398?autoplay=1&muted=0&loop=1&controls=1&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Redacted"></iframe>
     </div>
     <p class="piece-text">Turn up your volume to hear the sounds of redaction as we scan through various Jeffrey Epstein files.</p>
     <div class="bottom-nav">
@@ -662,7 +662,7 @@
     <h2 class="piece-title">Platform 1</h2>
     <p class="piece-text">Commissioned by the Australian Center for Moving Image in Melbourne, this interactive piece uses historical footage of the railroad platform that once occupied this site. As visitors to the museum descend a stairway inside the main gallery, their motion reveals a video of commuters moving through this space a hundred years ago.</p>
     <div class="video-embed video-embed-wide">
-      <iframe id="video14" data-src="https://player.vimeo.com/video/195889271?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Platform 1"></iframe>
+      <iframe id="video14" data-src="https://player.vimeo.com/video/195889271?autoplay=1&muted=0&loop=1&controls=1&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Platform 1"></iframe>
     </div>
     <p class="piece-text">The footage above (although very overexposed) gives a sense of how the piece appeared on location.</p>
     <div class="bottom-nav">
@@ -681,11 +681,11 @@
       <button class="round-btn nav-hidden" tabindex="-1" aria-hidden="true">&gt;</button>
     </div>
     <h2 class="piece-title">About</h2>
-    <p class="piece-text">Email: emily[at]studioemilyweil.com</p>
-    <p class="piece-text">LinkedIn: <a href="https://www.linkedin.com/in/emily-weil-621a969/" target="_blank" rel="noopener noreferrer">https://www.linkedin.com/in/emily-weil-621a969/</a></p>
-    <p class="piece-text">Twitter/X: <a href="https://x.com/emilyaweil" target="_blank" rel="noopener noreferrer">https://x.com/emilyaweil</a></p>
+    <p class="piece-text"><a href="mailto:emily@studioemilyweil.com">emily@studioemilyweil.com</a></p>
+    <p class="piece-text"><a href="https://www.linkedin.com/in/emily-weil-621a969/" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
+    <p class="piece-text"><a href="https://x.com/emilyaweil" target="_blank" rel="noopener noreferrer">Twitter/X</a></p>
 
-    <details class="option-block">
+    <details class="option-block" style="margin-top: 1rem;">
       <summary class="option-heading"><span class="arrow"></span> Option 1: Traditional-Style Artist Statement</summary>
       <p class="piece-text">My practice is rooted in the tension between order and chance, structure and spontaneity. Working with code as both medium and material, I construct systems whose visual outcomes resist complete control. Within these rule-based processes, unexpected forms emerge, allowing logic to become gestural and the algorithm to function as a site of improvisation.</p>
       <p class="piece-text">Drawing on a background in media art, technology, and data systems, my work encompasses motion-responsive architectural installations and on-chain generative works. I approach programming as a form of mark-making: conditional statements become compositional decisions, loops establish rhythm and repetition, and accumulated fragments of digital culture are transformed into fluid fields of color, movement, and form.</p>
@@ -790,6 +790,12 @@
     hideEl.style.opacity = '0';
     setTimeout(() => {
       hideEl.style.display = 'none';
+      // Stop any videos on the page we're leaving — otherwise a hidden
+      // iframe (especially one with sound on, like Redacted or Platform 1)
+      // keeps playing in the background after navigating away.
+      hideEl.querySelectorAll('iframe[data-src]').forEach((iframe) => {
+        iframe.src = 'about:blank';
+      });
       showEl.style.display = 'flex';
       window.scrollTo(0, 0);
       void showEl.offsetWidth; // force reflow before animating opacity in
