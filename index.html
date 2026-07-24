@@ -53,7 +53,7 @@
   /* Piece views: hidden entirely until opened. Uses a uniform flex `gap`
      for spacing between children instead of individual margins, since
      margins on flex children don't collapse. */
-  #pieceView, #pieceView2, #pieceView3, #pieceView4, #pieceView5, #pieceView6, #pieceView7, #pieceView8, #pieceView9, #pieceView10, #pieceView11, #pieceView12, #pieceView13, #pieceViewRedacted {
+  #pieceView, #pieceView2, #pieceView3, #pieceView4, #pieceView5, #pieceView6, #pieceView7, #pieceView8, #pieceView9, #pieceView10, #pieceView11, #pieceView12, #pieceView13, #pieceViewRedacted, #pieceAbout {
     display: none;
     align-items: flex-start;
     text-align: left;
@@ -108,7 +108,7 @@
     margin-bottom: 1.6rem;
   }
 
-  #pieceView .top-nav, #pieceView2 .top-nav, #pieceView3 .top-nav, #pieceView4 .top-nav, #pieceView5 .top-nav, #pieceView6 .top-nav, #pieceView7 .top-nav, #pieceView8 .top-nav, #pieceView9 .top-nav, #pieceView10 .top-nav, #pieceView11 .top-nav, #pieceView12 .top-nav, #pieceView13 .top-nav, #pieceViewRedacted .top-nav {
+  #pieceView .top-nav, #pieceView2 .top-nav, #pieceView3 .top-nav, #pieceView4 .top-nav, #pieceView5 .top-nav, #pieceView6 .top-nav, #pieceView7 .top-nav, #pieceView8 .top-nav, #pieceView9 .top-nav, #pieceView10 .top-nav, #pieceView11 .top-nav, #pieceView12 .top-nav, #pieceView13 .top-nav, #pieceViewRedacted .top-nav, #pieceAbout .top-nav {
     margin-bottom: 0;
   }
 
@@ -149,6 +149,12 @@
     align-self: stretch;
     display: flex;
     justify-content: flex-end;
+    margin-top: 1.6rem;
+  }
+
+
+  .about-row {
+    align-self: center;
     margin-top: 1.6rem;
   }
 
@@ -209,6 +215,60 @@
 
   .piece-text a {
     color: var(--ink);
+  }
+
+  .option-block {
+    align-self: stretch;
+    width: 100%;
+  }
+
+  .option-heading {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--ink);
+    cursor: pointer;
+    list-style: none;
+    padding: 0.2rem 0;
+  }
+
+  .option-heading::-webkit-details-marker {
+    display: none;
+  }
+
+  .option-heading::marker {
+    content: '';
+  }
+
+  .arrow {
+    display: inline-block;
+    width: 0.85em;
+    transform: rotate(-90deg);
+    transition: transform 0.2s ease;
+  }
+
+  .arrow::before {
+    content: '\25BC\FE0E';
+  }
+
+  .option-block[open] > .option-heading .arrow {
+    transform: rotate(0deg);
+  }
+
+  .option-heading:hover {
+    color: var(--muted);
+  }
+
+  .option-block[open] .option-heading {
+    margin-bottom: 0.9rem;
+  }
+
+  .option-block .piece-text {
+    margin-bottom: 0.9rem;
+  }
+
+  .option-block .piece-text:last-child {
+    margin-bottom: 0;
   }
 
   .piece-image {
@@ -283,6 +343,9 @@
     <h1 class="title" id="title">Studio Emily Weil</h1>
     <p class="subtitle" id="subtitle">Hello! I’m a digital artist based in NYC.<br>My work is all code-based.</p>
     <p class="intro-line" id="intro">Here's a selection of pieces I've created<br class="mobile-break"> over the years. <button class="round-btn" id="nextBtn" type="button" data-goto="pieceView" aria-label="View first piece: Anthropometrics">&gt;</button></p>
+    <div class="about-row">
+      <a class="home-link about-link" href="#">About</a>
+    </div>
   </div>
 
   <div class="view" id="pieceView">
@@ -305,6 +368,9 @@
       <button class="round-btn" data-goto="stage" aria-label="Back to home">&lt;</button>
       <button class="round-btn pulse-btn" data-goto="pieceView2" aria-label="Next piece: Several People Are Typing">&gt;</button>
     </div>
+    <div class="about-row">
+      <a class="home-link about-link" href="#">About</a>
+    </div>
   </div>
 
   <div class="view" id="pieceView2">
@@ -326,6 +392,9 @@
       <button class="round-btn" data-goto="pieceView" aria-label="Back to previous piece">&lt;</button>
       <button class="round-btn pulse-btn" data-goto="pieceViewRedacted" aria-label="Next piece: Redacted">&gt;</button>
     </div>
+    <div class="about-row">
+      <a class="home-link about-link" href="#">About</a>
+    </div>
   </div>
 
   <div class="view" id="pieceViewRedacted">
@@ -336,12 +405,15 @@
     </div>
     <h2 class="piece-title">Redacted</h2>
     <div class="video-embed">
-      <iframe id="video16" data-src="https://player.vimeo.com/video/1212508398?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Redacted"></iframe>
+      <iframe id="video16" data-src="https://player.vimeo.com/video/1212508398?autoplay=1&muted=1&loop=1&controls=1&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Redacted"></iframe>
     </div>
     <p class="piece-text">Turn up your volume to hear the sounds of redaction as we scan through various Jeffrey Epstein files.</p>
     <div class="bottom-nav">
       <button class="round-btn" data-goto="pieceView2" aria-label="Back to previous piece">&lt;</button>
       <button class="round-btn pulse-btn" data-goto="pieceView3" aria-label="Next piece: Proof of What Happened">&gt;</button>
+    </div>
+    <div class="about-row">
+      <a class="home-link about-link" href="#">About</a>
     </div>
   </div>
 
@@ -363,6 +435,9 @@
       <button class="round-btn" data-goto="pieceView2" aria-label="Back to previous piece">&lt;</button>
       <button class="round-btn pulse-btn" data-goto="pieceView4" aria-label="Next piece: Symbol 1">&gt;</button>
     </div>
+    <div class="about-row">
+      <a class="home-link about-link" href="#">About</a>
+    </div>
   </div>
 
   <div class="view" id="pieceView4">
@@ -382,6 +457,9 @@
     <div class="bottom-nav">
       <button class="round-btn" data-goto="pieceView3" aria-label="Back to previous piece">&lt;</button>
       <button class="round-btn pulse-btn" data-goto="pieceView5" aria-label="Next piece: After Even Night">&gt;</button>
+    </div>
+    <div class="about-row">
+      <a class="home-link about-link" href="#">About</a>
     </div>
   </div>
 
@@ -405,6 +483,9 @@
       <button class="round-btn" data-goto="pieceView4" aria-label="Back to previous piece">&lt;</button>
       <button class="round-btn pulse-btn" data-goto="pieceView6" aria-label="Next piece: Pressed">&gt;</button>
     </div>
+    <div class="about-row">
+      <a class="home-link about-link" href="#">About</a>
+    </div>
   </div>
 
   <div class="view" id="pieceView6">
@@ -422,6 +503,9 @@
     <div class="bottom-nav">
       <button class="round-btn" data-goto="pieceView5" aria-label="Back to previous piece">&lt;</button>
       <button class="round-btn pulse-btn" data-goto="pieceView7" aria-label="Next piece: Tweed">&gt;</button>
+    </div>
+    <div class="about-row">
+      <a class="home-link about-link" href="#">About</a>
     </div>
   </div>
 
@@ -445,6 +529,9 @@
       <button class="round-btn" data-goto="pieceView6" aria-label="Back to previous piece">&lt;</button>
       <button class="round-btn pulse-btn" data-goto="pieceView8" aria-label="Next piece: Chanel in C">&gt;</button>
     </div>
+    <div class="about-row">
+      <a class="home-link about-link" href="#">About</a>
+    </div>
   </div>
 
   <div class="view" id="pieceView8">
@@ -463,6 +550,9 @@
     <div class="bottom-nav">
       <button class="round-btn" data-goto="pieceView7" aria-label="Back to previous piece">&lt;</button>
       <button class="round-btn pulse-btn" data-goto="pieceView9" aria-label="Next piece: Video Frottis">&gt;</button>
+    </div>
+    <div class="about-row">
+      <a class="home-link about-link" href="#">About</a>
     </div>
   </div>
 
@@ -491,6 +581,9 @@
       <button class="round-btn" data-goto="pieceView8" aria-label="Back to previous piece">&lt;</button>
       <button class="round-btn pulse-btn" data-goto="pieceView10" aria-label="Next piece: Plunge">&gt;</button>
     </div>
+    <div class="about-row">
+      <a class="home-link about-link" href="#">About</a>
+    </div>
   </div>
 
   <div class="view" id="pieceView10">
@@ -512,6 +605,9 @@
       <button class="round-btn" data-goto="pieceView9" aria-label="Back to previous piece">&lt;</button>
       <button class="round-btn pulse-btn" data-goto="pieceView11" aria-label="Next piece: Perfume">&gt;</button>
     </div>
+    <div class="about-row">
+      <a class="home-link about-link" href="#">About</a>
+    </div>
   </div>
 
   <div class="view" id="pieceView11">
@@ -529,6 +625,9 @@
     <div class="bottom-nav">
       <button class="round-btn" data-goto="pieceView10" aria-label="Back to previous piece">&lt;</button>
       <button class="round-btn pulse-btn" data-goto="pieceView12" aria-label="Next piece: Cants and Flitches">&gt;</button>
+    </div>
+    <div class="about-row">
+      <a class="home-link about-link" href="#">About</a>
     </div>
   </div>
 
@@ -549,6 +648,9 @@
       <button class="round-btn" data-goto="pieceView11" aria-label="Back to previous piece">&lt;</button>
       <button class="round-btn pulse-btn" data-goto="pieceView13" aria-label="Next piece: Platform 1">&gt;</button>
     </div>
+    <div class="about-row">
+      <a class="home-link about-link" href="#">About</a>
+    </div>
   </div>
 
   <div class="view" id="pieceView13">
@@ -567,6 +669,41 @@
       <button class="round-btn" data-goto="pieceView12" aria-label="Back to previous piece">&lt;</button>
       <button class="round-btn pulse-btn" data-goto="stage" aria-label="Next piece">&gt;</button>
     </div>
+    <div class="about-row">
+      <a class="home-link about-link" href="#">About</a>
+    </div>
+  </div>
+
+  <div class="view" id="pieceAbout">
+    <div class="top-nav">
+      <button class="round-btn" id="aboutBackBtn" type="button" data-goto="stage" aria-label="Back">&lt;</button>
+      <a class="home-link" href="#" data-goto="stage">Studio Emily Weil</a>
+      <button class="round-btn nav-hidden" tabindex="-1" aria-hidden="true">&gt;</button>
+    </div>
+    <h2 class="piece-title">About</h2>
+    <p class="piece-text">Email: emily[at]studioemilyweil.com</p>
+    <p class="piece-text">LinkedIn: <a href="https://www.linkedin.com/in/emily-weil-621a969/" target="_blank" rel="noopener noreferrer">https://www.linkedin.com/in/emily-weil-621a969/</a></p>
+    <p class="piece-text">Twitter/X: <a href="https://x.com/emilyaweil" target="_blank" rel="noopener noreferrer">https://x.com/emilyaweil</a></p>
+
+    <details class="option-block">
+      <summary class="option-heading"><span class="arrow"></span> Option 1: Traditional-Style Artist Statement</summary>
+      <p class="piece-text">My practice is rooted in the tension between order and chance, structure and spontaneity. Working with code as both medium and material, I construct systems whose visual outcomes resist complete control. Within these rule-based processes, unexpected forms emerge, allowing logic to become gestural and the algorithm to function as a site of improvisation.</p>
+      <p class="piece-text">Drawing on a background in media art, technology, and data systems, my work encompasses motion-responsive architectural installations and on-chain generative works. I approach programming as a form of mark-making: conditional statements become compositional decisions, loops establish rhythm and repetition, and accumulated fragments of digital culture are transformed into fluid fields of color, movement, and form.</p>
+      <p class="piece-text">Through this process, I explore how lived experience is increasingly shaped by systems of data, computation, and exchange. Bringing the ordered languages of economics and technology into dialogue with the instability of human perception, my work considers the ways contemporary life unfolds between the rational and the unknowable. The resulting works are not simply made with digital tools; they arise from the particular conditions, contradictions, and possibilities of the digital age.</p>
+    </details>
+
+    <details class="option-block">
+      <summary class="option-heading"><span class="arrow"></span> Option 2: Narrative &amp; Polished</summary>
+      <p class="piece-text">My entry into digital art began with a happy accident: a piece of code left running on a monitor while I stepped out for a sandwich, resulting in a composition I hadn&rsquo;t planned. That moment revealed a captivating alchemy&mdash;the ability to write strict, logical commands that yield surprising, illogical results. I was hooked.</p>
+      <p class="piece-text">My work explores how human life evolves alongside, and is shaped by, emerging technology. Rooted in generative algorithms and computational media, my practice spans interactive architectural installations&mdash;such as dynamic displays that translate human movement into digital weaving&mdash;to fully on-chain, generative code. Informed by a background that bridges art, technology, and economics, I treat code not just as a tool, but as the medium itself. Algorithms serve as brushes, control structures function as paint, and data becomes cultural artifact.</p>
+      <p class="piece-text">From early video motion experiments to recent generative collections, my work consistently plays at the border between order and chaos, IRL and digital. I create collages and algorithmic systems that would be impossible with traditional materials, capturing the friction, nuance, and speed of what it means to live right now.</p>
+    </details>
+
+    <details class="option-block">
+      <summary class="option-heading"><span class="arrow"></span> Option 3: Concise &amp; High-Impact</summary>
+      <p class="piece-text">My practice explores the productive friction between logical code and spontaneous art. Writing algorithms that produce surprising, unpredictable visual outcomes, I investigate how contemporary life evolves alongside emerging technologies.</p>
+      <p class="piece-text">Drawing from a background in media art, technology, and data systems, my work ranges from motion-responsive architectural installations to on-chain generative code. In my generative pieces, the algorithm itself becomes the subject: if-then statements act as brushes and loops function as paint, transforming raw syntax and modern digital debris into fluid visual narratives. By bridging the structured world of economics and logic with the chaotic nature of human experience, I create art uniquely native to the digital age.</p>
+    </details>
   </div>
 
 <script>
@@ -673,6 +810,21 @@
       if (!target || !current || target === current) return;
       switchView(current, target);
       reloadVideosFor(target);
+    });
+  });
+
+  // "About" links appear on every page. Rather than a fixed destination,
+  // the About page's back button should return to whichever page the
+  // person came from — so each click updates that button's target first.
+  const pieceAbout = document.getElementById('pieceAbout');
+  const aboutBackBtn = document.getElementById('aboutBackBtn');
+  document.querySelectorAll('.about-link').forEach((el) => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      const current = el.closest('.view');
+      if (!current || current === pieceAbout) return;
+      aboutBackBtn.dataset.goto = current.id;
+      switchView(current, pieceAbout);
     });
   });
 </script>
