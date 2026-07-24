@@ -478,9 +478,12 @@
     </div>
     <h2 class="piece-title">Plunge</h2>
     <div class="video-embed video-embed-9-16">
-      <iframe id="video11" data-src="https://player.vimeo.com/video/70285346?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Plunge"></iframe>
+      <iframe id="video15" data-src="https://player.vimeo.com/video/81218572?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Plunge"></iframe>
     </div>
     <p class="piece-text">At the Novotel Hotel in Times Square, this monumental-scale video collage (displayed across two columns) shows bathers around the world leaping, dashing, falling and ice-carving their way into the brisk waters of a New Year.</p>
+    <div class="video-embed video-embed-9-16">
+      <iframe id="video11" data-src="https://player.vimeo.com/video/70285346?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Plunge"></iframe>
+    </div>
     <p class="piece-text">Commissioned by Stonehill &amp; Taylor Architects.</p>
     <div class="bottom-nav">
       <button class="round-btn" data-goto="pieceView9" aria-label="Back to previous piece">&lt;</button>
@@ -533,7 +536,7 @@
     </div>
     <h2 class="piece-title">Platform 1</h2>
     <p class="piece-text">Commissioned by the Australian Center for Moving Image in Melbourne, this interactive piece uses historical footage of the railroad platform that once occupied this site. As visitors to the museum descend a stairway inside the main gallery, their motion reveals a video of commuters moving through this space a hundred years ago.</p>
-    <div class="video-embed video-embed-4-3">
+    <div class="video-embed video-embed-wide">
       <iframe id="video14" data-src="https://player.vimeo.com/video/195889271?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Platform 1"></iframe>
     </div>
     <p class="piece-text">The footage above (although very overexposed) gives a sense of how the piece appeared on location.</p>
@@ -570,6 +573,7 @@
   const video12 = document.getElementById('video12');
   const video13 = document.getElementById('video13');
   const video14 = document.getElementById('video14');
+  const video15 = document.getElementById('video15');
 
   // Plain, immediate reveal of the home screen — no animation.
   stage.style.opacity = '1';
@@ -603,6 +607,7 @@
       loadVideo(video9);
       loadVideo(video10);
     } else if (view === pieceView10) {
+      loadVideo(video15);
       loadVideo(video11);
     } else if (view === pieceView11) {
       loadVideo(video12);
