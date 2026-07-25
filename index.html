@@ -54,7 +54,7 @@
   /* Piece views: hidden entirely until opened. Uses a uniform flex `gap`
      for spacing between children instead of individual margins, since
      margins on flex children don't collapse. */
-  #pieceView, #pieceView2, #pieceView3, #pieceView4, #pieceView5, #pieceView6, #pieceView7, #pieceView8, #pieceView9, #pieceView10, #pieceView11, #pieceView12, #pieceView13, #pieceViewRedacted, #pieceAbout {
+  #pieceView, #pieceView2, #pieceView3, #pieceView4, #pieceView5, #pieceView6, #pieceView7, #pieceView8, #pieceView9, #pieceView10, #pieceView11, #pieceView12, #pieceView13, #pieceViewRedacted, #pieceViewRiverside, #pieceAbout {
     display: none;
     align-items: flex-start;
     text-align: left;
@@ -113,7 +113,7 @@
     justify-content: center;
   }
 
-  #pieceView .top-nav, #pieceView2 .top-nav, #pieceView3 .top-nav, #pieceView4 .top-nav, #pieceView5 .top-nav, #pieceView6 .top-nav, #pieceView7 .top-nav, #pieceView8 .top-nav, #pieceView9 .top-nav, #pieceView10 .top-nav, #pieceView11 .top-nav, #pieceView12 .top-nav, #pieceView13 .top-nav, #pieceViewRedacted .top-nav, #pieceAbout .top-nav {
+  #pieceView .top-nav, #pieceView2 .top-nav, #pieceView3 .top-nav, #pieceView4 .top-nav, #pieceView5 .top-nav, #pieceView6 .top-nav, #pieceView7 .top-nav, #pieceView8 .top-nav, #pieceView9 .top-nav, #pieceView10 .top-nav, #pieceView11 .top-nav, #pieceView12 .top-nav, #pieceView13 .top-nav, #pieceViewRedacted .top-nav, #pieceViewRiverside .top-nav, #pieceAbout .top-nav {
     margin-bottom: 0;
   }
 
@@ -307,6 +307,21 @@
     display: block;
   }
 
+  .image-grid {
+    align-self: stretch;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+
+  .image-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
   .video-embed {
     position: relative;
     width: 100%;
@@ -370,7 +385,7 @@
 
   <div class="view" id="stage">
     <h1 class="title" id="title">Studio Emily Weil</h1>
-    <p class="subtitle" id="subtitle">Hello! I’m a digital artist based in NYC.<br>My work is (mostly!) code-based.</p>
+    <p class="subtitle" id="subtitle">Hello! I’m a digital artist based in NYC.<br>My work is (mostly) code-based.</p>
     <p class="intro-line" id="intro">Here's a selection of pieces I've created<br class="mobile-break"> over the years. <button class="round-btn" id="nextBtn" type="button" data-goto="pieceView" aria-label="View first piece: Anthropometrics">&gt;</button></p>
     <div class="about-row">
       <a class="home-link about-link" href="#">About</a>
@@ -423,6 +438,25 @@
       <iframe id="video16" data-src="https://player.vimeo.com/video/1212508398?autoplay=1&muted=0&loop=1&controls=1&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Redacted"></iframe>
     </div>
     <p class="piece-text">Turn up your volume to hear the sounds of redaction as we scan through various Jeffrey Epstein files.</p>
+    <div class="about-row">
+      <a class="home-link about-link" href="#">About</a>
+    </div>
+  </div>
+
+  <div class="view" id="pieceViewRiverside">
+    <div class="top-nav top-nav-centered">
+      <a class="home-link" href="#" data-goto="stage">Studio Emily Weil</a>
+    </div>
+    <h2 class="piece-title">Riverside Impressions, IRL &amp; AI</h2>
+    <div class="image-grid">
+      <img src="Cyanotype1-smll.jpg" alt="Riverside Impressions cyanotype: main limb with a network of thinner branches">
+      <img src="Cyanotype4-smll.jpg" alt="Riverside Impressions cyanotype: pine twig and needles">
+      <img src="Cyanotype5-smll.jpg" alt="Riverside Impressions cyanotype: spherical seed balls">
+      <img src="Cyanotype6-smll.jpg" alt="Riverside Impressions cyanotype: pine branch, seed balls, and leaf">
+    </div>
+    <p class="piece-text">This series is a homage to <a href="https://en.wikipedia.org/wiki/Anna_Atkins" target="_blank" rel="noopener noreferrer">Anna Atkins</a>, a botanist who recorded the natural world through a series of cyanotypes, which she compiled into books &ndash; considered the very first book of photography.</p>
+    <p class="piece-text">Riverside Impressions combine IRL and AI images of nature I gathered during a walk along Riverside Park in NYC. I shot the leaves and such; showed those images to an AI; asked the AI to describe what it sees; and then gave that description to a second AI to render an image that fits the description. Finally I combined the two images: one shot by me directly, and the other rendered by AI.</p>
+    <p class="piece-text">Beneath each compilation is a snippet of the AI generated description.</p>
     <div class="about-row">
       <a class="home-link about-link" href="#">About</a>
     </div>
@@ -762,8 +796,9 @@
   // top and bottom of every page).
   const pieceNav = {
     pieceView: { prev: 'stage', next: 'pieceViewRedacted' },
-    pieceViewRedacted: { prev: 'pieceView', next: 'pieceView3' },
-    pieceView3: { prev: 'pieceViewRedacted', next: 'pieceView4' },
+    pieceViewRedacted: { prev: 'pieceView', next: 'pieceViewRiverside' },
+    pieceViewRiverside: { prev: 'pieceViewRedacted', next: 'pieceView3' },
+    pieceView3: { prev: 'pieceViewRiverside', next: 'pieceView4' },
     pieceView4: { prev: 'pieceView3', next: 'pieceView5' },
     pieceView5: { prev: 'pieceView4', next: 'pieceView6' },
     pieceView6: { prev: 'pieceView5', next: 'pieceView7' },
