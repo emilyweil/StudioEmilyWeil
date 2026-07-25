@@ -795,8 +795,9 @@
   // pair of fixed side arrows (rather than repeating buttons at both the
   // top and bottom of every page).
   const pieceNav = {
-    pieceView: { prev: 'stage', next: 'pieceViewRedacted' },
-    pieceViewRedacted: { prev: 'pieceView', next: 'pieceViewRiverside' },
+    pieceView: { prev: 'stage', next: 'pieceView2' },
+    pieceView2: { prev: 'pieceView', next: 'pieceViewRedacted' },
+    pieceViewRedacted: { prev: 'pieceView2', next: 'pieceViewRiverside' },
     pieceViewRiverside: { prev: 'pieceViewRedacted', next: 'pieceView3' },
     pieceView3: { prev: 'pieceViewRiverside', next: 'pieceView4' },
     pieceView4: { prev: 'pieceView3', next: 'pieceView5' },
