@@ -281,9 +281,14 @@
     margin-bottom: 0;
   }
 
-  .bottom-corner-link {
-    position: fixed;
-    bottom: 1.2rem;
+  #pieceBottomNav {
+    align-self: stretch;
+    display: none;
+    justify-content: space-between;
+    margin-top: 1.6rem;
+  }
+
+  #pieceBottomNav a {
     font-family: 'JetBrains Mono', monospace;
     font-weight: 500;
     font-size: 0.85rem;
@@ -292,24 +297,10 @@
     text-decoration: none;
     opacity: 0.7;
     transition: opacity 0.2s ease;
-    display: none;
-    z-index: 10;
   }
 
-  .bottom-corner-link:hover {
+  #pieceBottomNav a:hover {
     opacity: 1;
-  }
-
-  .bottom-corner-left {
-    left: 1.2rem;
-  }
-
-  .bottom-corner-right {
-    right: 1.2rem;
-  }
-
-  .bottom-corner-link.visible {
-    display: inline-block;
   }
 
   .piece-image {
@@ -399,8 +390,8 @@
   <div class="view" id="stage">
     <h1 class="title" id="title">Studio Emily Weil</h1>
     <p class="subtitle" id="subtitle">Hello! I’m a digital artist based in NYC.<br>My work is (mostly) code-based.</p>
-    <p class="intro-line" id="intro"><a class="plain-link" href="#" data-goto="pieceView">Here's a selection of pieces I've created<br class="mobile-break"> over the years.</a> <button class="round-btn" id="nextBtn" type="button" data-goto="pieceView" aria-label="View first piece: Anthropometrics">&gt;</button></p>
-    <div class="about-row" style="margin-top: 2.4rem;">
+    <p class="intro-line" id="intro"><a class="plain-link" href="#" data-goto="pieceView2">Here's a selection of pieces I've created<br class="mobile-break"> over the years.</a> <button class="round-btn" id="nextBtn" type="button" data-goto="pieceView2" aria-label="View first piece: Several People Are Typing">&gt;</button></p>
+    <div class="about-row" style="margin-top: 4rem;">
       <a class="home-link about-link" href="#">About me</a>
     </div>
   </div>
@@ -653,8 +644,10 @@
     </details>
   </div>
 
-  <a href="#" class="bottom-corner-link bottom-corner-left" id="sideBackBtn" data-goto="" aria-label="Previous piece">back</a>
-  <a href="#" class="bottom-corner-link bottom-corner-right" id="sideNextBtn" data-goto="" aria-label="Next piece">next</a>
+  <div id="pieceBottomNav">
+    <a href="#" id="sideBackBtn" data-goto="" aria-label="Previous piece">back</a>
+    <a href="#" id="sideNextBtn" data-goto="" aria-label="Next piece">next</a>
+  </div>
 
 <script>
   const stage = document.getElementById('stage');
@@ -762,9 +755,9 @@
   // pair of fixed side arrows (rather than repeating buttons at both the
   // top and bottom of every page).
   const pieceNav = {
-    pieceView: { prev: 'stage', next: 'pieceView2' },
-    pieceView2: { prev: 'pieceView', next: 'pieceViewRedacted' },
-    pieceViewRedacted: { prev: 'pieceView2', next: 'pieceViewRiverside' },
+    pieceView2: { prev: 'stage', next: 'pieceView' },
+    pieceView: { prev: 'pieceView2', next: 'pieceViewRedacted' },
+    pieceViewRedacted: { prev: 'pieceView', next: 'pieceViewRiverside' },
     pieceViewRiverside: { prev: 'pieceViewRedacted', next: 'pieceView3' },
     pieceView3: { prev: 'pieceViewRiverside', next: 'pieceView4' },
     pieceView4: { prev: 'pieceView3', next: 'pieceView5' },
@@ -781,17 +774,17 @@
 
   const sideBackBtn = document.getElementById('sideBackBtn');
   const sideNextBtn = document.getElementById('sideNextBtn');
+  const pieceBottomNav = document.getElementById('pieceBottomNav');
 
   function updateSideNav(view) {
     const nav = pieceNav[view.id];
     if (nav) {
       sideBackBtn.dataset.goto = nav.prev;
       sideNextBtn.dataset.goto = nav.next;
-      sideBackBtn.classList.add('visible');
-      sideNextBtn.classList.add('visible');
+      view.appendChild(pieceBottomNav);
+      pieceBottomNav.style.display = 'flex';
     } else {
-      sideBackBtn.classList.remove('visible');
-      sideNextBtn.classList.remove('visible');
+      pieceBottomNav.style.display = 'none';
     }
   }
 
