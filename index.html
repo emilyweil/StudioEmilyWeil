@@ -94,6 +94,11 @@
     display: none;
   }
 
+  .intro-line a.plain-link {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
   @media (max-width: 600px) {
     .mobile-break {
       display: inline;
@@ -276,28 +281,35 @@
     margin-bottom: 0;
   }
 
-  .side-nav-btn {
+  .bottom-corner-link {
     position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
+    bottom: 1.2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
     display: none;
     z-index: 10;
   }
 
-  .side-nav-btn:hover {
-    transform: translateY(-50%) scale(1.1);
+  .bottom-corner-link:hover {
+    opacity: 1;
   }
 
-  .side-nav-left {
-    left: 0.4rem;
+  .bottom-corner-left {
+    left: 1.2rem;
   }
 
-  .side-nav-right {
-    right: 0.4rem;
+  .bottom-corner-right {
+    right: 1.2rem;
   }
 
-  .side-nav-btn.visible {
-    display: inline-flex;
+  .bottom-corner-link.visible {
+    display: inline-block;
   }
 
   .piece-image {
@@ -387,9 +399,9 @@
   <div class="view" id="stage">
     <h1 class="title" id="title">Studio Emily Weil</h1>
     <p class="subtitle" id="subtitle">Hello! I’m a digital artist based in NYC.<br>My work is (mostly) code-based.</p>
-    <p class="intro-line" id="intro">Here's a selection of pieces I've created<br class="mobile-break"> over the years. <button class="round-btn" id="nextBtn" type="button" data-goto="pieceView" aria-label="View first piece: Anthropometrics">&gt;</button></p>
-    <div class="about-row">
-      <a class="home-link about-link" href="#">About</a>
+    <p class="intro-line" id="intro"><a class="plain-link" href="#" data-goto="pieceView">Here's a selection of pieces I've created<br class="mobile-break"> over the years.</a> <button class="round-btn" id="nextBtn" type="button" data-goto="pieceView" aria-label="View first piece: Anthropometrics">&gt;</button></p>
+    <div class="about-row" style="margin-top: 2.4rem;">
+      <a class="home-link about-link" href="#">About me</a>
     </div>
   </div>
 
@@ -407,9 +419,6 @@
     <div class="video-embed video-embed-crop">
       <iframe id="video2" data-src="https://player.vimeo.com/video/1054556129?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Anthropometrics on Light Background"></iframe>
     </div>
-    <div class="about-row">
-      <a class="home-link about-link" href="#">About</a>
-    </div>
   </div>
 
   <div class="view" id="pieceView2">
@@ -425,9 +434,6 @@
     <p class="piece-text">The background displays layered graphs of everyday data &ndash; e.g. the temperature in NYC, and price charts for ETH, XTZ and the S&amp;P. On the lower right sits an ellipsis, a symbol ever-present in real-time chat that shows when a conversation is paused&hellip; while people are typing.</p>
     <img class="piece-image" src="BackgroundForCollage-1-1536x2048.png" alt="Layered background price-chart graphs from Several People Are Typing">
     <p class="piece-text">&ldquo;Several People Are Typing&rdquo; was published on <a href="https://objkt.com/auction/e/LN3a8Wy5" target="_blank" rel="noopener noreferrer">Objkt</a>.</p>
-    <div class="about-row">
-      <a class="home-link about-link" href="#">About</a>
-    </div>
   </div>
 
   <div class="view" id="pieceViewRedacted">
@@ -439,9 +445,6 @@
       <iframe id="video16" data-src="https://player.vimeo.com/video/1212508398?autoplay=1&muted=0&loop=1&controls=1&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Redacted"></iframe>
     </div>
     <p class="piece-text">Turn up your volume to hear the sounds of redaction as we scan through various Jeffrey Epstein files.</p>
-    <div class="about-row">
-      <a class="home-link about-link" href="#">About</a>
-    </div>
   </div>
 
   <div class="view" id="pieceViewRiverside">
@@ -457,9 +460,6 @@
     </div>
     <p class="piece-text">This series is a homage to <a href="https://en.wikipedia.org/wiki/Anna_Atkins" target="_blank" rel="noopener noreferrer">Anna Atkins</a>, a botanist who recorded the natural world in cyanotypes and compiled them into books &ndash; one of which is considered the very first book of photography.</p>
     <p class="piece-text">Riverside Impressions combines IRL and AI: I photographed leaves and other found objects during a walk along Riverside Park in NYC, asked an AI to describe what it saw in those images, then fed that description to a second AI to render a new image in response. Each compilation here pairs the two &ndash; one shot by me, the other rendered by AI &ndash; and displays a snippet of the AI-generated description.</p>
-    <div class="about-row">
-      <a class="home-link about-link" href="#">About</a>
-    </div>
   </div>
 
   <div class="view" id="pieceView3">
@@ -474,9 +474,6 @@
     <p class="piece-text">If you look closely, you&rsquo;ll see it&rsquo;s comprised of snippets of historical BTC price charts.</p>
     <img class="piece-image" src="closeUpOfProofOfWhatHappened.jpg" alt="Close-up detail of Proof of What Happened, showing historical BTC price chart snippets">
     <p class="piece-text">&ldquo;Proof of What Happened&rdquo; was inscribed and then sold as an ordinal on the Bitcoin blockchain <a href="https://gamma.io/ordinals/collections/proof-of-what-happened-by-emily-weil" target="_blank" rel="noopener noreferrer">here</a>.</p>
-    <div class="about-row">
-      <a class="home-link about-link" href="#">About</a>
-    </div>
   </div>
 
   <div class="view" id="pieceView4">
@@ -491,9 +488,6 @@
     <img class="piece-image" src="Symbol1_closeup.jpg" alt="Close-up of Symbol 1, showing the code text that forms each mark">
     <p class="piece-text">When viewing Symbol 1, you&rsquo;re viewing its code &mdash; logic becoming art. Here is a close-up of the image above:</p>
     <p class="piece-text"><a href="https://www.artblocks.io/collections/presents/projects/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/411" target="_blank" rel="noopener noreferrer">Symbol 1 was published on Artblocks</a>.</p>
-    <div class="about-row">
-      <a class="home-link about-link" href="#">About</a>
-    </div>
   </div>
 
   <div class="view" id="pieceView5">
@@ -510,9 +504,6 @@
     <img class="piece-image" src="AfterEvenNight1.png" alt="After Even Night, travel image 1">
     <img class="piece-image" src="AfterEvenNight2.jpg" alt="After Even Night, travel image 2">
     <img class="piece-image" src="AfterEvenNight3.png" alt="After Even Night, travel image 3">
-    <div class="about-row">
-      <a class="home-link about-link" href="#">About</a>
-    </div>
   </div>
 
   <div class="view" id="pieceView6">
@@ -525,9 +516,6 @@
     <p class="piece-text">Pressed is a series of two 1 of 1s &ndash; Pressed Spring and Pressed Fall.</p>
     <p class="piece-text">The digital equivalent of a pressed flower, an algorithm written in C++ collapses a video of a walk through the woods (25 seconds, 1500 frames) into a single image.</p>
     <p class="piece-text"><a href="https://foundation.app/collection/eweil" target="_blank" rel="noopener noreferrer">Pressed was published on Foundation.</a></p>
-    <div class="about-row">
-      <a class="home-link about-link" href="#">About</a>
-    </div>
   </div>
 
   <div class="view" id="pieceView7">
@@ -544,9 +532,6 @@
       <iframe id="video6" data-src="https://player.vimeo.com/video/189959249?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Tweed, staircase interaction footage"></iframe>
     </div>
     <p class="piece-text">Commissioned by Peter Marino Architects and Chanel.</p>
-    <div class="about-row">
-      <a class="home-link about-link" href="#">About</a>
-    </div>
   </div>
 
   <div class="view" id="pieceView8">
@@ -560,9 +545,6 @@
     <p class="piece-text">At the Chanel store in Beverly Hills, Chanel&rsquo;s C logos appear on a large screen in front of a stairway that&rsquo;s visible through a window off the street.</p>
     <p class="piece-text">Chanel Cs respond in real time, in highly interactive and dynamic patterns, to the motion of viewers climbing and descending the staircase.</p>
     <p class="piece-text">This installation was Commissioned by Peter Marino Architects and Chanel.</p>
-    <div class="about-row">
-      <a class="home-link about-link" href="#">About</a>
-    </div>
   </div>
 
   <div class="view" id="pieceView9">
@@ -584,9 +566,6 @@
     </div>
     <p class="piece-text piece-caption">Ocean wave.</p>
     <p class="piece-text">Commissioned by Chanel for its Global Art Collection, showcased in Chanel stores around the world.</p>
-    <div class="about-row">
-      <a class="home-link about-link" href="#">About</a>
-    </div>
   </div>
 
   <div class="view" id="pieceView10">
@@ -602,9 +581,6 @@
       <iframe id="video11" data-src="https://player.vimeo.com/video/70285346?background=1&autopause=0&autoplay=1&loop=1&muted=1&controls=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Plunge"></iframe>
     </div>
     <p class="piece-text">Commissioned by Stonehill &amp; Taylor Architects.</p>
-    <div class="about-row">
-      <a class="home-link about-link" href="#">About</a>
-    </div>
   </div>
 
   <div class="view" id="pieceView11">
@@ -617,9 +593,6 @@
     </div>
     <p class="piece-text">At the Chanel Store in Soho, NYC, this video offers a series of studies of the Chanel C logo on the surface of a giant perfume bottle.</p>
     <p class="piece-text">Commissioned by Peter Marino Architects and Chanel.</p>
-    <div class="about-row">
-      <a class="home-link about-link" href="#">About</a>
-    </div>
   </div>
 
   <div class="view" id="pieceView12">
@@ -633,9 +606,6 @@
     <p class="piece-text">Displayed in the lobby of Radisson Blu, Minneapolis, &ldquo;Cants and Flitches&rdquo; is inspired by the history of logging and mills that built and shaped Minneapolis. (In logging terminology &ldquo;cants&rdquo; are unfinished logs to be processed; &ldquo;flitches&rdquo; are unfinished planks.)</p>
     <p class="piece-text">The video is generated by a kind of digital sawmill &mdash; an algorithm that deconstructs and reconstructs images of trees and parts of trees &ndash; to create new, semi-natural, harmonious images.</p>
     <p class="piece-text">Commissioned by Stonehill &amp; Taylor Architects.</p>
-    <div class="about-row">
-      <a class="home-link about-link" href="#">About</a>
-    </div>
   </div>
 
   <div class="view" id="pieceView13">
@@ -648,9 +618,6 @@
       <iframe id="video14" data-src="https://player.vimeo.com/video/195889271?autoplay=1&muted=0&loop=1&controls=1&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Platform 1"></iframe>
     </div>
     <p class="piece-text">The footage above (although very overexposed) gives a sense of how the piece appeared on location.</p>
-    <div class="about-row">
-      <a class="home-link about-link" href="#">About</a>
-    </div>
   </div>
 
   <div class="view" id="pieceAbout">
@@ -686,8 +653,8 @@
     </details>
   </div>
 
-  <button class="round-btn side-nav-btn side-nav-left" id="sideBackBtn" type="button" data-goto="" aria-label="Previous piece">&lt;</button>
-  <button class="round-btn pulse-btn side-nav-btn side-nav-right" id="sideNextBtn" type="button" data-goto="" aria-label="Next piece">&gt;</button>
+  <a href="#" class="bottom-corner-link bottom-corner-left" id="sideBackBtn" data-goto="" aria-label="Previous piece">back</a>
+  <a href="#" class="bottom-corner-link bottom-corner-right" id="sideNextBtn" data-goto="" aria-label="Next piece">next</a>
 
 <script>
   const stage = document.getElementById('stage');
