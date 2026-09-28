@@ -290,8 +290,10 @@
 
   .nav-text-link {
     font-family: 'JetBrains Mono', monospace;
-    font-weight: 500;
-    font-size: 0.85rem;
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 1;
+    padding: 0.2rem 0.4rem;
     letter-spacing: -0.01em;
     color: var(--ink);
     text-decoration: none;
@@ -305,8 +307,10 @@
 
   #pieceBottomNav a {
     font-family: 'JetBrains Mono', monospace;
-    font-weight: 500;
-    font-size: 0.85rem;
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 1;
+    padding: 0.2rem 0.4rem;
     letter-spacing: -0.01em;
     color: var(--ink);
     text-decoration: none;
@@ -644,8 +648,8 @@
   </div>
 
   <div id="pieceBottomNav">
-    <a href="#" id="sideBackBtn" data-goto="" aria-label="Previous piece">back</a>
-    <a href="#" id="sideNextBtn" data-goto="" aria-label="Next piece">next</a>
+    <a href="#" id="sideBackBtn" data-goto="" aria-label="Previous piece">&lt;</a>
+    <a href="#" id="sideNextBtn" data-goto="" aria-label="Next piece">&gt;</a>
   </div>
 
 <script>
@@ -786,14 +790,14 @@
     back.href = '#';
     back.className = 'nav-text-link';
     back.dataset.goto = pieceNav[id].prev;
-    back.textContent = 'back';
+    back.textContent = '<';
     back.setAttribute('aria-label', 'Previous piece');
 
     const next = document.createElement('a');
     next.href = '#';
     next.className = 'nav-text-link';
     next.dataset.goto = pieceNav[id].next;
-    next.textContent = 'next';
+    next.textContent = '>';
     next.setAttribute('aria-label', 'Next piece');
 
     topNav.insertBefore(back, topNav.firstChild);
