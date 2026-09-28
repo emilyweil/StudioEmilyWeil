@@ -288,6 +288,21 @@
     margin-top: 1.6rem;
   }
 
+  .nav-text-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+  }
+
+  .nav-text-link:hover {
+    opacity: 1;
+  }
+
   #pieceBottomNav a {
     font-family: 'JetBrains Mono', monospace;
     font-weight: 500;
@@ -755,6 +770,35 @@
     pieceView12: { prev: 'pieceView11', next: 'pieceView13' },
     pieceView13: { prev: 'pieceView12', next: 'stage' }
   };
+
+  // Add "back" / "next" to the top of every project page too (flanking the
+  // small "Studio Emily Weil" link), built from the same map so the top and
+  // bottom links can never disagree. Must run before the click handlers
+  // below are attached.
+  Object.keys(pieceNav).forEach((id) => {
+    const view = document.getElementById(id);
+    if (!view) return;
+    const topNav = view.querySelector('.top-nav');
+    if (!topNav) return;
+    topNav.classList.remove('top-nav-centered');
+
+    const back = document.createElement('a');
+    back.href = '#';
+    back.className = 'nav-text-link';
+    back.dataset.goto = pieceNav[id].prev;
+    back.textContent = 'back';
+    back.setAttribute('aria-label', 'Previous piece');
+
+    const next = document.createElement('a');
+    next.href = '#';
+    next.className = 'nav-text-link';
+    next.dataset.goto = pieceNav[id].next;
+    next.textContent = 'next';
+    next.setAttribute('aria-label', 'Next piece');
+
+    topNav.insertBefore(back, topNav.firstChild);
+    topNav.appendChild(next);
+  });
 
   const sideBackBtn = document.getElementById('sideBackBtn');
   const sideNextBtn = document.getElementById('sideNextBtn');
