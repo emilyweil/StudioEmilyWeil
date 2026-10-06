@@ -225,15 +225,12 @@
 <div id="nib" aria-hidden="true"></div>
 <script>
 (function () {
+  var fine = window.matchMedia("(pointer: fine)").matches;
   var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var canvas = document.getElementById("ink");
   var nib = document.getElementById("nib");
-  if (calm) { canvas.remove(); nib.remove(); return; }
-
-  // mouse users get the pen-tip cursor; touch screens draw with a finger
-  var fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-  if (fine) document.documentElement.classList.add("pen");
-  else nib.remove();
+  if (!fine || calm) { canvas.remove(); nib.remove(); return; }
+  document.documentElement.classList.add("pen");
 
   var ctx = canvas.getContext("2d");
   var dpr = 1;
@@ -241,21 +238,21 @@
     dpr = window.devicePixelRatio || 1;
     canvas.width = Math.round(innerWidth * dpr);
     canvas.height = Math.round(innerHeight * dpr);
-    wake();
   }
+  resize();
+  addEventListener("resize", resize);
 
   var LIFE = 5000;         // ms a bit of line lasts before it's fully gone
   var MAX_PTS = 5000;
-  var pts = [];            // {x, y, t, w, s}
-  var stroke = 0;          // separate strokes never join up
+  var pts = [];            // {x, y, t, w}
+  var tip = null;          // where the pen is now
+  var overLink = false;
   var lastW = 1.8;
-
-  function newStroke() { stroke++; lastW = 1.8; }
 
   function add(x, y, t) {
     var prev = pts[pts.length - 1];
     var w = lastW;
-    if (prev && prev.s === stroke) {
+    if (prev) {
       var dist = Math.hypot(x - prev.x, y - prev.y);
       if (dist < 0.75) return;
       var dt = Math.max(1, t - prev.t);
@@ -265,80 +262,28 @@
       w = lastW + (target - lastW) * 0.25;
     }
     lastW = w;
-    pts.push({ x: x, y: y, t: t, w: w, s: stroke });
+    pts.push({ x: x, y: y, t: t, w: w });
     if (pts.length > MAX_PTS) pts.shift();
+  }
+
+  addEventListener("pointermove", function (e) {
+    if (e.pointerType !== "mouse" && e.pointerType !== "pen") return;
+    var now = performance.now();
+    var list = e.getCoalescedEvents ? e.getCoalescedEvents() : [e];
+    if (!list.length) list = [e];
+    list.forEach(function (ev) { add(ev.clientX, ev.clientY, now); });
+    tip = { x: e.clientX, y: e.clientY };
+    overLink = !!(e.target.closest && e.target.closest("a"));
+    nib.style.transform = "translate(" + e.clientX + "px," + e.clientY + "px)";
+    nib.classList.add("on");
+    nib.classList.toggle("link", overLink);
     wake();
-  }
-
-  /* ---------- mouse / stylus on desktop ---------- */
-  if (fine) {
-    addEventListener("pointermove", function (e) {
-      if (e.pointerType !== "mouse" && e.pointerType !== "pen") return;
-      var now = performance.now();
-      var list = e.getCoalescedEvents ? e.getCoalescedEvents() : [e];
-      if (!list.length) list = [e];
-      list.forEach(function (ev) { add(ev.clientX, ev.clientY, now); });
-      var overLink = !!(e.target.closest && e.target.closest("a"));
-      nib.style.transform = "translate(" + e.clientX + "px," + e.clientY + "px)";
-      nib.classList.add("on");
-      nib.classList.toggle("link", overLink);
-    }, { passive: true });
-
-    var hideNib = function () { nib.classList.remove("on"); newStroke(); };
-    document.documentElement.addEventListener("pointerleave", hideNib);
-    addEventListener("blur", hideNib);
-  }
-
-  /* ---------- touch: one finger draws, two fingers scroll ---------- */
-  var drawing = false;     // a one-finger stroke that started off a link
-  var twoFinger = null;    // last midpoint while scrolling with two fingers
-
-  function onLink(target) { return !!(target.closest && target.closest("a")); }
-  function mid(t) {
-    return { x: (t[0].clientX + t[1].clientX) / 2, y: (t[0].clientY + t[1].clientY) / 2 };
-  }
-
-  document.addEventListener("touchstart", function (e) {
-    if (e.touches.length === 1) {
-      drawing = !onLink(e.target);
-      if (drawing) {
-        newStroke();
-        var t = e.touches[0];
-        add(t.clientX, t.clientY, performance.now());
-      }
-    } else if (e.touches.length === 2) {
-      drawing = false;
-      newStroke();
-      twoFinger = mid(e.touches);
-    }
   }, { passive: true });
 
-  document.addEventListener("touchmove", function (e) {
-    if (e.touches.length >= 2 && twoFinger) {
-      // native scrolling is off while a gesture might be a drawing, so scroll by hand
-      e.preventDefault();
-      var m = mid(e.touches);
-      window.scrollBy(0, twoFinger.y - m.y);
-      twoFinger = m;
-      return;
-    }
-    if (!drawing) return;            // started on a link: let it scroll normally
-    e.preventDefault();              // keep the page still while drawing
-    var now = performance.now();
-    for (var i = 0; i < e.changedTouches.length; i++) {
-      var t = e.changedTouches[i];
-      add(t.clientX, t.clientY, now);
-    }
-  }, { passive: false });
+  function hideNib() { tip = null; nib.classList.remove("on"); }
+  document.documentElement.addEventListener("pointerleave", hideNib);
+  addEventListener("blur", hideNib);
 
-  function endTouch(e) {
-    if (e.touches.length === 0) { drawing = false; twoFinger = null; newStroke(); }
-    else if (e.touches.length === 1) { twoFinger = null; drawing = false; }
-  }
-  document.addEventListener("touchend", endTouch, { passive: true });
-  document.addEventListener("touchcancel", endTouch, { passive: true });
-
-  /* ---------- drawing loop ---------- */
   var running = false;
   function wake() { if (!running) { running = true; requestAnimationFrame(draw); } }
 
@@ -352,45 +297,36 @@
     ctx.lineJoin = "round";
     ctx.strokeStyle = "#000";
 
-    function fade(p) {
-      var life = 1 - (now - p.t) / LIFE;
-      if (life <= 0) return 0;
-      var e = Math.min(1, life * 1.6);
-      return e * e * (3 - 2 * e);
-    }
-
-    for (var i = 0; i < pts.length; i++) {
-      var p1 = pts[i];
-      var p0 = pts[i - 1], p2 = pts[i + 1];
-      var sameBefore = p0 && p0.s === p1.s;
-      var sameAfter = p2 && p2.s === p1.s;
-      var ease = fade(p1);
-      if (!ease) continue;
+    // smooth curve through midpoints; each piece fades and thins with age
+    for (var i = 1; i < pts.length - 1; i++) {
+      var p0 = pts[i - 1], p1 = pts[i], p2 = pts[i + 1];
+      var life = 1 - (now - p1.t) / LIFE;
+      if (life <= 0) continue;
+      var ease = Math.min(1, life * 1.6);
+      ease = ease * ease * (3 - 2 * ease);
       ctx.globalAlpha = 0.85 * ease;
       ctx.lineWidth = p1.w * (0.7 + 0.3 * ease);
       ctx.beginPath();
-      if (!sameBefore && !sameAfter) {
-        // a single touch: leave a small dot of ink
-        ctx.fillStyle = "#000";
-        ctx.arc(p1.x, p1.y, p1.w / 2, 0, Math.PI * 2);
-        ctx.fill();
-        continue;
-      }
-      var sx = sameBefore ? (p0.x + p1.x) / 2 : p1.x;
-      var sy = sameBefore ? (p0.y + p1.y) / 2 : p1.y;
-      var ex = sameAfter ? (p1.x + p2.x) / 2 : p1.x;
-      var ey = sameAfter ? (p1.y + p2.y) / 2 : p1.y;
-      ctx.moveTo(sx, sy);
-      ctx.quadraticCurveTo(p1.x, p1.y, ex, ey);
+      ctx.moveTo((p0.x + p1.x) / 2, (p0.y + p1.y) / 2);
+      ctx.quadraticCurveTo(p1.x, p1.y, (p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
+      ctx.stroke();
+    }
+    // close the last little gap up to the tip
+    if (pts.length >= 2) {
+      var a = pts[pts.length - 2], b = pts[pts.length - 1];
+      ctx.globalAlpha = 0.85;
+      ctx.lineWidth = b.w;
+      ctx.beginPath();
+      ctx.moveTo((a.x + b.x) / 2, (a.y + b.y) / 2);
+      ctx.lineTo(b.x, b.y);
       ctx.stroke();
     }
 
+
+    // keep animating while ink is fading; when idle the nib just stays drawn
     if (pts.length) requestAnimationFrame(draw);
     else running = false;
   }
-
-  resize();
-  addEventListener("resize", resize);
 })();
 </script>
 </body>
