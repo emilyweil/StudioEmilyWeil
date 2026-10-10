@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Why Anthropic</title>
+<style>
+/* Layout: one sentence on a single line, left-anchored so the phrase stays put while the verb types in. Black on white in every theme. */
+:root {
+  --bg: #ffffff;
+  --fg: #000000;
+  --muted: #8c8c8c;
+  --verb: #000000;
+  --spin: #d97757;
+  --caret: #000000;
+  --font-lead: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-verb: var(--font-lead);
+  color-scheme: light;
+}
+html, body { height: 100%; margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  display: grid;
+  place-items: center;
+  padding: 0 clamp(16px, 6vw, 80px);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.stage {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15em;
+  font-family: var(--font-lead);
+  font-weight: 400;
+  font-size: clamp(1.25rem, 3vw, 2.75rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+/* The fixed phrase never moves; the verb hangs off its right edge.
+   Shifted left so phrase + a typical verb sits near the middle. */
+.phrase {
+  position: relative;
+  white-space: nowrap;
+  transform: translateX(-6em);
+}
+.intro { text-align: center; }
+.verb-line {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  padding-left: 0.27em;
+}
+@media (max-width: 640px) {
+  .phrase { transform: none; }
+  .verb-line {
+    left: 50%;
+    top: 100%;
+    padding-left: 0;
+    transform: translateX(-50%);
+  }
+}
+.verb-line {
+  white-space: nowrap;
+}
+.verb {
+  font-family: var(--font-verb);
+  color: var(--muted);
+  font-size: 0.72em;
+}
+/* Three dots that switch between moves: wave, pulse, squeeze. */
+.spin {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.08em;
+  width: 0.62em;
+  height: 0.62em;
+  margin-right: 0.22em;
+  align-self: center;
+}
+/* Dots center on the verb's own line; the pair still sits on the sentence baseline. */
+.verb-wrap {
+  display: inline-flex;
+  align-items: center;
+}
+.verb-wrap .verb { align-self: baseline; }
+.verb::after { content: "\200b"; }
+.spin i {
+  width: 0.13em;
+  height: 0.13em;
+  border-radius: 50%;
+  background: var(--spin);
+}
+.spin.wave i { animation: wave 0.32s ease-in-out infinite alternate; }
+.spin.wave i:nth-child(2) { animation-delay: 0.1s; }
+.spin.wave i:nth-child(3) { animation-delay: 0.2s; }
+@keyframes wave {
+  from { transform: translateY(0.13em); }
+  to { transform: translateY(-0.13em); }
+}
+.spin.pulse i { animation: pulse 0.9s ease-in-out infinite; }
+.spin.pulse i:nth-child(2) { animation-delay: 0.15s; }
+.spin.pulse i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes pulse {
+  0%, 70%, 100% { opacity: 0.35; transform: scale(0.7); }
+  35% { opacity: 1; transform: scale(1.25); }
+}
+.spin.squeeze i:nth-child(1) { animation: sqL 0.4s ease-in-out infinite alternate; }
+.spin.squeeze i:nth-child(3) { animation: sqR 0.4s ease-in-out infinite alternate; }
+@keyframes sqL { to { transform: translateX(0.21em); } }
+@keyframes sqR { to { transform: translateX(-0.21em); } }
+@media (prefers-reduced-motion: reduce) {
+  .spin, .spin i { animation: none !important; }
+}
+.caret {
+  display: inline-block;
+  width: 0.06em;
+  height: 0.9em;
+  margin-left: 0.04em;
+  vertical-align: -0.08em;
+  background: var(--caret);
+  animation: blink 1s steps(1) infinite;
+}
+.typing .caret { animation: none; }
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .caret { animation: none; }
+}
+</style>
+</head>
+<body>
+<main class="stage" aria-live="polite">
+  <span class="intro">I like Anthropic's products, mission, and culture –</span>
+  <span class="phrase"><span class="lead">and I really enjoy</span><span class="verb-line" id="line"><span class="verb-wrap"><span class="spin wave" id="spin" aria-hidden="true"><i></i><i></i><i></i></span><span class="verb" id="verb">Accomplishing</span></span> with Claude.</span></span>
+</main>
+
+<script>
+const words = [
+  "accomplishing", "actioning", "actualizing", "architecting", "baking", "beaming", "beboppin'",
+  "befuddling", "billowing", "blanching", "bloviating", "boogieing", "boondoggling", "booping", "bootstrapping", "brewing",
+  "bunning", "burrowing", "calculating", "canoodling", "caramelizing", "cascading", "catapulting", "cerebrating", "channeling",
+  "channelling", "choreographing", "churning", "clauding", "coalescing", "cogitating", "combobulating", "composing", "computing",
+  "concocting", "considering", "contemplating", "cooking", "crafting", "creating", "crunching", "crystallizing", "cultivating",
+  "deciphering", "deliberating", "determining", "dilly-dallying", "discombobulating", "doing", "doodling", "drizzling", "ebbing",
+  "effecting", "elucidating", "embellishing", "enchanting", "envisioning", "evaporating", "fermenting", "fiddle-fadding",
+  "finagling", "flambéing", "flibbertigibbeting", "flowing", "flummoxing", "fluttering", "forging", "forming", "frolicking",
+  "frosting", "gallivanting", "galloping", "garnishing", "generating", "gesticulating", "germinating", "gitifying", "grooving",
+  "gusting", "harmonizing", "hashing", "hatching", "herding", "honking", "hullaballooing", "hyperspacing", "ideating", "imagining",
+  "improvising", "incubating", "inferring", "infusing", "ionizing", "jitterbugging", "julienning", "kneading", "leavening",
+  "levitating", "lollygagging", "manifesting", "marinating", "meandering", "metamorphosing", "misting", "moonwalking", "moseying",
+  "mulling", "mustering", "musing", "nebulizing", "nesting", "newspapering", "noodling", "nucleating", "orbiting", "orchestrating",
+  "osmosing", "perambulating", "percolating", "perusing", "philosophising", "photosynthesizing", "pollinating", "pondering",
+  "pontificating", "pouncing", "precipitating", "prestidigitating", "processing", "proofing", "propagating", "puttering",
+  "puzzling", "quantumizing", "razzle-dazzling", "razzmatazzing", "recombobulating", "reticulating", "roosting", "ruminating",
+  "sautéing", "scampering", "schlepping", "scurrying", "seasoning", "shenaniganing", "shimmying", "simmering", "skedaddling",
+  "sketching", "slithering", "smooshing", "sock-hopping", "spelunking", "spinning", "sprouting", "stewing", "sublimating",
+  "swirling", "swooping", "symbioting", "synthesizing", "tempering", "thinking", "thundering", "tinkering", "tomfoolering",
+  "topsy-turvying", "transfiguring", "transmuting", "twisting", "undulating", "unfurling", "unravelling", "vibing", "waddling",
+  "wandering", "warping", "whatchamacalliting", "whirlpooling", "whirring", "whisking", "wibbling", "working", "wrangling",
+  "zesting", "zigzagging"
+];
+
+for (let k = 0; k < words.length; k++) {
+  words[k] = words[k].charAt(0).toUpperCase() + words[k].slice(1);
+}
+
+const verbEl = document.getElementById("verb");
+const lineEl = document.getElementById("line");
+const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+const spinEl = document.getElementById("spin");
+if (!reduce) {
+  const moves = ["wave", "pulse", "squeeze"];
+  let move = "wave";
+  setInterval(() => {
+    const others = moves.filter(m => m !== move);
+    const next = others[Math.floor(Math.random() * others.length)];
+    spinEl.classList.replace(move, next);
+    move = next;
+  }, 1600);
+}
+
+async function run() {
+  let i = 0;
+  await sleep(1800);
+  while (true) {
+    const current = Array.from(verbEl.textContent);
+    i = (i + 1) % words.length;
+    const next = Array.from(words[i]);
+    if (reduce) {
+      verbEl.textContent = words[i];
+      await sleep(1800);
+      continue;
+    }
+    lineEl.classList.add("typing");
+    for (let n = current.length; n > 0; n--) {
+      verbEl.textContent = current.slice(0, n - 1).join("");
+      await sleep(28);
+    }
+    await sleep(220);
+    for (let n = 1; n <= next.length; n++) {
+      verbEl.textContent = next.slice(0, n).join("");
+      await sleep(55 + Math.random() * 45);
+    }
+    lineEl.classList.remove("typing");
+    await sleep(1500);
+  }
+}
+run();
+</script>
+</body>
+</html>
