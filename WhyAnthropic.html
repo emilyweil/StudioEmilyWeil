@@ -46,14 +46,19 @@ body {
   white-space: nowrap;
   transform: translateX(-6em);
 }
-.intro { text-align: center; }
+.intro { text-align: center; white-space: nowrap; }
+.c-mob { display: none; }
 .verb-line {
   position: absolute;
   left: 100%;
   top: 0;
   padding-left: 0.27em;
 }
+/* Phone: three lines — "…mission, and" / "culture – and I really enjoy" / "[dots] Verb with Claude." */
 @media (max-width: 640px) {
+  .stage { font-size: 4.6vw; }
+  .c-desk { display: none; }
+  .c-mob { display: inline; }
   .phrase { transform: none; }
   .verb-line {
     left: 50%;
@@ -133,8 +138,8 @@ body {
 </head>
 <body>
 <main class="stage" aria-live="polite">
-  <span class="intro">I like Anthropic's products, mission, and culture –</span>
-  <span class="phrase"><span class="lead">and I really enjoy</span><span class="verb-line" id="line"><span class="verb-wrap"><span class="spin wave" id="spin" aria-hidden="true"><i></i><i></i><i></i></span><span class="verb" id="verb">Accomplishing</span></span> with Claude.</span></span>
+  <span class="intro">I like Anthropic's products, mission, and<span class="c-desk"> culture –</span></span>
+  <span class="phrase"><span class="lead"><span class="c-mob">culture – </span>and I really enjoy</span><span class="verb-line" id="line"><span class="verb-wrap"><span class="spin wave" id="spin" aria-hidden="true"><i></i><i></i><i></i></span><span class="verb" id="verb">Accomplishing</span></span> with Claude.</span></span>
 </main>
 
 <script>
