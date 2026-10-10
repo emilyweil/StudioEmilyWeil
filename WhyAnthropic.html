@@ -56,7 +56,8 @@ body {
 }
 /* Phone: three lines — "…mission," / "and culture – and I really enjoy" / "[dots] Verb with Claude." */
 @media (max-width: 640px) {
-  .stage { font-size: 4.6vw; }
+  /* Lift the block by half a line + half the gap so line 2 sits at the page's vertical middle. */
+  .stage { font-size: 4.6vw; transform: translateY(-0.675em); }
   .c-desk { display: none; }
   .c-mob { display: inline; }
   .phrase { transform: none; }
